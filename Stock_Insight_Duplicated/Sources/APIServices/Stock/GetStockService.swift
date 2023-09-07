@@ -35,7 +35,7 @@ struct GetStockService{
                 guard let statusCode = response.response?.statusCode else {
                     return
                 }
-                guard let data = response.value else {
+                guard let data = response.data else {
                     return
                 }
                 completion(judgeGetStock(status: statusCode, data: data))
@@ -51,28 +51,38 @@ struct GetStockService{
         let decoder = JSONDecoder()
         print("======judgeGetStock In=========")
         
+        print("isJSON : \(isJSONValid(data: data))")
+        print(" type : \(type(of: data))")
+        
+        /*
         if let jsonString = String(data: data, encoding: .utf8) {
-            // Print the JSON string to check the format
             print("judgeSearchStock in JSON String: \(jsonString)")
         } else {
             // If converting to a string fails, print the raw data
             print("Raw Data: \(data)")
         }
+        */
         
         
+//        print("=======decoding 시작===========")
         
+//        guard let decodedData = try? decoder.decode(StockInfo.self, from: data) else {return .pathErr}
         
-        
-        print("=======decoding 시작===========")
-        guard let decodedData = try? decoder.decode(Stock.self, from: data) else {
-            return .pathErr
+        do {
+            let decodedData = try decoder.decode(StockInfo2.self, from: data)
+            return .success(decodedData)
+        } catch {
+            print("Error:", error)
         }
-        print("=======decoding 성공===========")
+     
+        
+        
+//        print("=======decoding 성공===========")
 
         switch status {
-        case 200:
-            // 성공
-            return .success(decodedData)
+//        case 200:
+//            // 성공
+//            return .success(decodedData)
         case 408:
             // 주식 API 문제로 요청 시간초과
             var overTimeMessage = "주식 API 문제로 요청 시간초과"
@@ -82,6 +92,18 @@ struct GetStockService{
             return .wrongParameter
         default:
             return .networkFail
+        }
+    }
+    
+    
+    //JSON인지 확인하기
+    func isJSONValid(data: Data) -> Bool {
+        do {
+            let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
+            return JSONSerialization.isValidJSONObject(jsonObject)
+        } catch {
+            print("Error checking if data is valid JSON:", error)
+            return false
         }
     }
 }

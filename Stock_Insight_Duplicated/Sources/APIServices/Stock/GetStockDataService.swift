@@ -5,68 +5,41 @@ import Alamofire
 struct GetStockDataService{
     static let shared = GetStockDataService()
     
-    func getStockData(completion: @escaping (NetworkResult<Any>) -> (Void)){
+    //종목의 1년치 종가 받아오기
+    func getStockData(stockCode: String, completion: @escaping (NetworkResult<Any>) -> (Void)){
         // Yahoo Finance API URL
+        let url = "https://query1.finance.yahoo.com/v8/finance/chart/\(stockCode).KS?interval=1d&range=1y"
+        print("printURL: \(url)")
         
-        let url = "https://query1.finance.yahoo.com/v8/finance/chart/005930.KS"
-
+        
+        //되는 url
+        //let url = "https://query1.finance.yahoo.com/v8/finance/chart/005930.KS?interval=1d&range=1y"
+        
         print("========GetStockDataService getStockData In========")
         AF.request(url).responseJSON { response in
-            
-            
             switch response.result {
             case .success(let value):
                 // 데이터 처리 로직
                 print("========GetStockDataService response.success In========")
                 
-                //JSON 값 확인
-                /*
-                if let jsonString = String(data: response.data!, encoding: .utf8) {
-                    // Print the JSON string to check the format
-                    print("judgeSearchStock in JSON String: \(jsonString)")
-                } else {
-                    // If converting to a string fails, print the raw data
-                    print("Raw Data: \(response)")
-                }
-                */
-                
                 //파싱 한 값을 전달
                 completion(parsingData(data: response.data!))
                 
-                // JSON 데이터 디코딩
-//                if let jsonData = response.data!(using: .utf8) {
-//                    do {
-//                        let decoder = JSONDecoder()
-//                        let stockData = try decoder.decode(StockData.self, from: jsonData)
-//
-//                        // "close" 값을 가져옵니다.
-//                        let closeValues = stockData.chart.result[0].indicators.close
-//                        print(closeValues) // 이제 close 값을 사용할 수 있습니다.
-//                    } catch {
-//                        print("JSON 디코딩 에러: \(error.localizedDescription)")
-//                    }
-//                } else {
-//                    print("JSON 데이터를 변환하는데 실패했습니다.")
-//                }
-                
-                
-                
-                
-//                completion(parsingData(jsonString: value as! String))
-//                print(value)
-                
-                // 여기서부터 value 변수에 담긴 데이터를 원하는 형태로 가공하거나 활용할 수 있습니다.
-                
             case .failure(let error):
                 completion(.networkFail)
-            
+
             }
         }
     }
     
     func parsingData(data: Data) -> NetworkResult<Any>{
         print("======== parsingData In========")
-        // JSON 문자열을 Data로 변환
+        var decodedData = ""
+
+        //점검 코드
+        
+        print("isJSON : \(isJSONValid(data: data))")
+        print(" type : \(type(of: data))")
         
         //JSON 값 확인
         if let jsonString = String(data: data, encoding: .utf8) {
@@ -77,18 +50,21 @@ struct GetStockDataService{
             print("Raw Data: \(data)")
         }
         
+        
         print("====Decoding 시작=====")
-        
-  
-        
         let decoder = JSONDecoder()
-        guard let stockDataResponse = try? decoder.decode(StockDataResponse.self, from: data) else {return .pathErr}
+
+        do {
+            let decodedData = try decoder.decode(StockChartResponse.self, from: data)
+            print("디코딩 성공")
+            return .success(decodedData.chart.result[0].indicators.quote[0].close)
+        } catch {
+            print("Error:", error)
+        }
+    
+        print("====Decoding 실패=====")
         
-        print("====Decoding 성공=====")
-        
-        // "close" 값을 추출하여 반환
-        let closeValues = stockDataResponse.chart.indicators.quote.close
-        return .success(closeValues)
+        return .networkFail
     }
     
     func getCloseValue_Test(){
@@ -124,6 +100,18 @@ struct GetStockDataService{
         }
         print("=======task.resume======")
         task.resume()
+    }
+    
+    
+    //JSON인지 확인하기
+    func isJSONValid(data: Data) -> Bool {
+        do {
+            let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
+            return JSONSerialization.isValidJSONObject(jsonObject)
+        } catch {
+            print("Error checking if data is valid JSON:", error)
+            return false
+        }
     }
         
 }

@@ -55,6 +55,8 @@
 		C13772EC2AA6A3E800462E11 /* dataset.csv in Resources */ = {isa = PBXBuildFile; fileRef = C13772E32AA6A3E800462E11 /* dataset.csv */; };
 		C13772EF2AA6A3EC00462E11 /* Data_SE00.csv in Resources */ = {isa = PBXBuildFile; fileRef = C13772ED2AA6A3EC00462E11 /* Data_SE00.csv */; };
 		C13772F02AA6A3EC00462E11 /* kospi.csv in Resources */ = {isa = PBXBuildFile; fileRef = C13772EE2AA6A3EC00462E11 /* kospi.csv */; };
+		C13772F22AA6F33500462E11 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13772F12AA6F33500462E11 /* Int.swift */; };
+		C15ABE5C2AA71F4B00EB0376 /* KOSPI200_data.csv in Resources */ = {isa = PBXBuildFile; fileRef = C15ABE5B2AA71F4B00EB0376 /* KOSPI200_data.csv */; };
 		F00A4795768C45BDBA7DA95D /* libPods-Stock_Insight_Duplicated.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CCF4BA3EC08DDEFAA927934 /* libPods-Stock_Insight_Duplicated.a */; };
 /* End PBXBuildFile section */
 
@@ -111,6 +113,8 @@
 		C13772E32AA6A3E800462E11 /* dataset.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dataset.csv; sourceTree = "<group>"; };
 		C13772ED2AA6A3EC00462E11 /* Data_SE00.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Data_SE00.csv; sourceTree = "<group>"; };
 		C13772EE2AA6A3EC00462E11 /* kospi.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = kospi.csv; sourceTree = "<group>"; };
+		C13772F12AA6F33500462E11 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		C15ABE5B2AA71F4B00EB0376 /* KOSPI200_data.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = KOSPI200_data.csv; sourceTree = "<group>"; };
 		CDE02791CFF2C77CEB443C7F /* Pods-Stock_Insight_Duplicated.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock_Insight_Duplicated.release.xcconfig"; path = "Target Support Files/Pods-Stock_Insight_Duplicated/Pods-Stock_Insight_Duplicated.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -231,6 +235,7 @@
 				C13772E12AA6A3E800462E11 /* 20d_predict_SE00.csv */,
 				C13772E22AA6A3E800462E11 /* 30d_predict_SE00.csv */,
 				C13772E02AA6A3E800462E11 /* Data_Sentimental.csv */,
+				C15ABE5B2AA71F4B00EB0376 /* KOSPI200_data.csv */,
 				C13772DB2AA6A3E800462E11 /* dataset_SE.csv */,
 				C13772E32AA6A3E800462E11 /* dataset.csv */,
 				C13772DE2AA6A3E800462E11 /* kosdaq.csv */,
@@ -288,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				C13772CB2AA6A10800462E11 /* UIColor.swift */,
+				C13772F12AA6F33500462E11 /* Int.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -472,6 +478,7 @@
 				C13772DA2AA6A3DF00462E11 /* 5d_predict_SE00.csv in Resources */,
 				C13772E42AA6A3E800462E11 /* dataset_SE.csv in Resources */,
 				C13772E92AA6A3E800462E11 /* Data_Sentimental.csv in Resources */,
+				C15ABE5C2AA71F4B00EB0376 /* KOSPI200_data.csv in Resources */,
 				C13772E82AA6A3E800462E11 /* 5d_predict.csv in Resources */,
 				C13772EB2AA6A3E800462E11 /* 30d_predict_SE00.csv in Resources */,
 				C13772E72AA6A3E800462E11 /* kosdaq.csv in Resources */,
@@ -533,6 +540,7 @@
 				C13772AF2AA69C3A00462E11 /* LeadingIndex.swift in Sources */,
 				C13772D12AA6A1FC00462E11 /* GetStockService.swift in Sources */,
 				C13772BD2AA6A03000462E11 /* MainViewContoller.swift in Sources */,
+				C13772F22AA6F33500462E11 /* Int.swift in Sources */,
 				C13772A02AA69A2B00462E11 /* ResetPasswordService.swift in Sources */,
 				C13772A62AA69AB700462E11 /* User.swift in Sources */,
 				C13772CA2AA6A0EA00462E11 /* StarCollectionViewCell.swift in Sources */,

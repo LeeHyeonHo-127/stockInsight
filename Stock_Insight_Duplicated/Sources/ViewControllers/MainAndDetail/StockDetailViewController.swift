@@ -10,6 +10,7 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
     @IBOutlet var stockCodeLabel: UILabel!
     @IBOutlet var presentPriceLabel: UILabel!
     @IBOutlet var changePriceLabel: UILabel!
+    @IBOutlet var changePriceLabel2: UILabel!
     @IBOutlet var arrowImageView: UIImageView!
     @IBOutlet var firstChartViewStateLabel: UILabel!
     
@@ -44,7 +45,7 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
     var indexLineChartView: LineChartView!
     
     //data
-    var presentStockData: Stock?
+    var presentStockData: StockInfo?
     
     //dummy
     var gradientColor = UIColor.stockInsightBlue
@@ -74,6 +75,39 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
     
     //MARK: - 설정 함수
     
+    //라벨 뷰 세팅 함수
+    func predictViewLabeSetting(type: ChartDataType){
+        //예측 값이 얼마나 올랐는지 계산하는 코드 필요
+        guard let currentPrice = self.presentStockData?.currentPrice else {return}
+        guard let change = self.presentStockData?.change else {return}
+        guard let stockName = self.presentStockData?.stockName else {return}
+        guard let sentimental = self.presentStockData?.sentiment else {return}
+        
+        
+        let changePrice = ""
+        
+        if(type == .sentimentalPredict){ // 감성 분석일 경우
+            self.presentPriceLabel.text = " "
+
+            if sentimental == 1{
+                self.changePriceLabel.text = "  [\(stockName)]의 감성분석 결과가 긍정적입니다"
+            }else{
+                self.changePriceLabel.text = "  [\(stockName)]의 감성분석 결과가 부정적입니다"
+            }
+        }else{
+            //현재 주가 데이터 출력
+            self.stockNameLabel.text = stockName
+            self.stockCodeLabel.text = self.presentStockData?.stockCode
+            self.presentPriceLabel.text = "\(Int(currentPrice)!)"
+            
+            self.changePriceLabel.text = ""
+            self.changePriceLabel.textColor = .systemRed
+            
+            
+        }
+//        self.predictViewTypeLabel.text = type.rawValue
+    }
+    
     //뷰 세팅
     func settingView(){
         guard let currentPrice = self.presentStockData_Dummy?.currentPrice else {return}
@@ -85,7 +119,7 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
         self.stockCodeLabel.text = self.presentStockData_Dummy?.stockCode
         self.presentPriceLabel.text = "\(Int(currentPrice))"
         self.changePriceLabel.text = "+\(changePrice)(\(change)%)"
-        self.arrowImageView.image = UIImage(systemName: "arrow.up")
+
         
         //corner layer 설정
         self.presentPriceButton.layer.cornerRadius = 5
@@ -175,8 +209,9 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
                 stockData = self.presentStockData_Dummy?.dayFivePrices
             case .predict10day:
                 stockData = self.presentStockData_Dummy?.dayTenPrices
+            
             default:
-                stockData = parseCSVFile(datasetName: "5d_predict_SE00")
+                stockData = parseCSVFile(datasetName: "5d_predict")
             }
             
             
@@ -317,6 +352,7 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
         self.predictLineChartView = self.configureChartView(isPredict: true, color: UIColor.systemGreen, chartDataType: .presentPrice)
         self.predicePriceView.addSubview(self.predictLineChartView)
         
+        self.predictViewLabeSetting(type: .sentimentalPredict)
         
         self.presentPriceButton.backgroundColor = .black
         self.LSTMButton.backgroundColor = .black
@@ -359,6 +395,29 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
         self.predict10DayButton.backgroundColor = .darkGray
     }
     
+    @IBAction func everyDayEconomyButtonTapped(_ sender: Any) {
+        guard let urlString = self.presentStockData?.magazineUrl else {return}
+        let websiteURL = URL(string: urlString)
+        if let url = websiteURL {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
+    @IBAction func hankyunBusinessButtonTapped(_ sender: Any) {
+        guard let urlString = self.presentStockData?.newsUrl else {return}
+        let websiteURL = URL(string: urlString)
+        if let url = websiteURL {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
+    @IBAction func economistButtonTapped(_ sender: Any) {
+        guard let urlString = self.presentStockData?.economistUrl else {return}
+        let websiteURL = URL(string: urlString)
+        if let url = websiteURL {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
     
     
     
@@ -442,8 +501,8 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
         GetStockService.shared.getStock(stockName: stockName, completion: { (networkResult) in
             switch networkResult{
             case.success(let data):
-                guard let searchData = data as? Stock else {return}
-                self.presentStockData = searchData
+                guard let searchData = data as? StockInfo2 else {return}
+                self.presentStockData = searchData.stockInfo
                 
                 //종목 상세화면으로 이동 함수
                 
@@ -511,5 +570,35 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
     
 }
 
+
+
+extension StockDetailViewController{
+    
+    
+    func chartValueSelected(_ chartView_: ChartViewBase,
+                            entry entry: ChartDataEntry,
+                            highlight highlight: Highlight) {
+        
+        
+        let dataSetIndex = highlight.dataSetIndex
+        print("hilight = \(highlight)")
+        print("y value = \(highlight.y)")
+        print("dataSetIndex = \(dataSetIndex)")
+        let value = chartView_.data?.dataSets[dataSetIndex].entryForIndex(Int(highlight.x))?.y
+        
+        let dateFormatter = DateAxisValueFormatter()
+        let selectedDateStr = dateFormatter.stringForValue(highlight.x, axis: nil)
+//        self.showAlert(title: "\(highlight.y)원 입니다")
+        
+        if(highlight.y > 5000){
+            self.changePriceLabel.text = "\(selectedDateStr) : \(highlight.y)"
+        }else{
+            self.changePriceLabel.text = "\(selectedDateStr) : \(highlight.y)"
+        }
+//        print("Selected Y Value:", value)
+    }
+    
+    
+}
 
 

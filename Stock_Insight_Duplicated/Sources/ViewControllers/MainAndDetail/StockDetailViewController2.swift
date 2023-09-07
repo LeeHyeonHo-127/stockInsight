@@ -2,19 +2,9 @@ import UIKit
 import Charts
 import Foundation
 
-enum ChartDataType: String{
-    case sentimentalPredict = "감성분석"
-    case presentPrice = "현재주가"
-    case predict5day = "5일 예측"
-    case predict10day = "10일 예측"
-    case KOSPI = "KOSPI"
-    case KOSDAQ = "KOSDAQ"
-    case KOSPI200 = "KOSPI200"
-    
-}
 
 
-class MainViewContoller: UIViewController {
+class StockDetailViewController2: UIViewController {
     
     //label, textField
     @IBOutlet var dateLabel: UILabel!
@@ -419,7 +409,6 @@ class MainViewContoller: UIViewController {
         guard let viewController = self.storyboard?.instantiateViewController(identifier: "StockDetailViewController") as? StockDetailViewController else {return}
         
         viewController.presentStockData_Dummy = self.presentStockData_Dummy
-        viewController.presentStockData = self.presentStockData
         self.navigationController?.pushViewController(viewController, animated: true)
         
     }
@@ -901,7 +890,7 @@ class MainViewContoller: UIViewController {
 }
 
 
-extension MainViewContoller: ChartViewDelegate{
+extension StockDetailViewController2: ChartViewDelegate{
     
     
     func chartValueSelected(_ chartView_: ChartViewBase,
