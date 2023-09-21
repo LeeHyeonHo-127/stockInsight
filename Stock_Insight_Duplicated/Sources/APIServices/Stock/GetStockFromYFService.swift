@@ -1,7 +1,51 @@
 import Foundation
 import Alamofire
+import SwiftYFinance
 
+struct GetStockFromYFService{
+    static let shared = GetStockFromYFService()
+    
+    func getStockDataFromYF(stockCode: String) -> [[Date: Double]]{
+        
+        let symbol = stockCode + ".KS" // 삼성전자 종목 심볼, ".KS"는 한국 주식 시장을 나타냅니다.
+        var stockData = [[Date: Double]]()
+        
+        // 시작 및 종료 날짜 설정
+        let dateFormatter_onlyDate = DateFormatter()
+        dateFormatter_onlyDate.dateFormat = "yyyy-MM-dd"
+        
+        let dateFormatter_DateAndTime = DateFormatter()
+        dateFormatter_DateAndTime.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    
+        
+        let startDate = dateFormatter_onlyDate.date(from: "2020-01-01")
+        let endDate = Date()
+        
+        let calendar = Calendar.current
+        
+        // 종가 데이터 가져오기
+        SwiftYFinance.chartDataBy(identifier: symbol, start: startDate!, end: endDate, interval: .oneday){
+            data, error in
+            if let chartData = data{
+                let transformedData: [[Date: Double]] = chartData.compactMap { data in
+                    guard let date = data.date, let close = data.close else {
+                        return [Date: Double]() // 날짜나 종가 데이터가 없으면 무시
+                    }
+                    return [date: Double(close)]
+                }
+                stockData = transformedData
+//                print("transformedData = \(transformedData)")
+            }
+        }
+        return stockData
+    }
+    
+    
+    
+    
+}
 
+/*
 struct GetStockDataService{
     static let shared = GetStockDataService()
     
@@ -116,7 +160,7 @@ struct GetStockDataService{
         
 }
 
-
+*/
 
 //받는 JSON 형태
 /*

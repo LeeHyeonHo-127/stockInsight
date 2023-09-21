@@ -1,6 +1,7 @@
 import UIKit
 import Charts
 import Foundation
+import SwiftYFinance
 
 enum ChartDataType: String{
     case sentimentalPredict = "감성분석"
@@ -62,6 +63,9 @@ class MainViewContoller: UIViewController {
     //data
     var searchStockData: StockInfo?
     var presentStockData: StockInfo?
+    
+    var predictStockData: PredictStock?
+    var predictStockData_search: PredictStock?
     
     var indexDatas: IndexData?
     var openDates: [Date]?
@@ -136,13 +140,13 @@ class MainViewContoller: UIViewController {
         //제스쳐 세팅
         self.gestureSetting()
         
-        //주가 그래프 뷰 세팅
-        self.predictLineChartView = configureChartView(isPredict: true, color: UIColor.stockInsightBlue, chartDataType: .presentPrice)
-        self.indexLineChartView = configureChartView(isPredict: true, color: UIColor.systemOrange, chartDataType: .KOSPI)
-        self.predicePriceView.addSubview(predictLineChartView)
-        self.indexView.addSubview(indexLineChartView)
-        self.predictViewLabeSetting(type: .KOSPI)
-        self.predictViewLabeSetting(type: .presentPrice)
+//        //주가 그래프 뷰 세팅
+//        self.predictLineChartView = configureChartView(isPredict: true, color: UIColor.stockInsightBlue, chartDataType: .presentPrice)
+//        self.indexLineChartView = configureChartView(isPredict: true, color: UIColor.systemOrange, chartDataType: .KOSPI)
+//        self.predicePriceView.addSubview(predictLineChartView)
+//        self.indexView.addSubview(indexLineChartView)
+//        self.predictViewLabeSetting(type: .KOSPI)
+//        self.predictViewLabeSetting(type: .presentPrice)
         
     }
     
@@ -278,11 +282,11 @@ class MainViewContoller: UIViewController {
             case .KOSPI200:
                 stockData = self.indexDatas?.KOSPI200
             case .presentPrice:
-                stockData = self.presentStockData_Dummy?.Prices
+                stockData = self.predictStockData?.current_Data //테스트
             case .predict5day:
-                stockData = self.presentStockData_Dummy?.dayFivePrices
+                stockData = self.predictStockData?.predict5_Data //테스트
             case .predict10day:
-                stockData = self.presentStockData_Dummy?.dayTenPrices
+                stockData = self.predictStockData?.predict10_Data //테스트
             default:
                 stockData = parseCSVFile(datasetName: "5d_predict_SE00")
             }
@@ -526,6 +530,108 @@ class MainViewContoller: UIViewController {
 //    }
     
     
+    //하나의 예측 주가 데이터 구조체로 함치는 함수
+    func getPredictStock(stockCode: String, stockInfo: StockInfo){
+        //var stockDataFromYF = GetStockFromYFService.shared.getStockDataFromYF(stockCode: stockCode)
+        
+        var predict5Price_before = stockInfo.predict5Prices
+        var predict10Price_before = stockInfo.predict10Prices
+        
+        let symbol = stockCode + ".KS" // 삼성전자 종목 심볼, ".KS"는 한국 주식 시장을 나타냅니다.
+        var stockData = [[Date: Double]]()
+        
+        // 시작 및 종료 날짜 설정
+        let dateFormatter_onlyDate = DateFormatter()
+        dateFormatter_onlyDate.dateFormat = "yyyy-MM-dd"
+        
+        let dateFormatter_DateAndTime = DateFormatter()
+        dateFormatter_DateAndTime.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    
+        
+        let startDate = dateFormatter_onlyDate.date(from: "2020-01-01")
+        let endDate = Date()
+        
+        let calendar = Calendar.current
+        
+        // PredictedPrice 배열을 [[Date: Double]] 형태로 변환
+        let predict5Price_transformed: [[Date: Double]] = predict5Price_before.compactMap { predict5Price_before in
+            if let dateString = predict5Price_before.date,
+               let priceString = predict5Price_before.price,
+               let date = convertToDate(dateString),
+               let price = Double(priceString) {
+                return [date: price]
+            }
+            return nil
+        }
+        
+        let predict10Price_transformed: [[Date: Double]] = predict10Price_before.compactMap { predict10Price_before in
+            if let dateString = predict10Price_before.date,
+               let priceString = predict10Price_before.price,
+               let date = convertToDate(dateString),
+               let price = Double(priceString) {
+                return [date: price]
+            }
+            return nil
+        }
+        
+        // 종가 데이터 가져오기
+        SwiftYFinance.chartDataBy(identifier: symbol, start: startDate!, end: endDate, interval: .oneday){
+            data, error in
+            if let chartData = data{
+                let transformedData: [[Date: Double]] = chartData.compactMap { data in
+                    guard let date = data.date, let close = data.close else {
+                        return [Date: Double]() // 날짜나 종가 데이터가 없으면 무시
+                    }
+                    return [date: Double(close)]
+                }
+                stockData = transformedData
+                
+                let predictStockData = PredictStock(stockName: stockInfo.stockName,
+                                                    stockCode: stockInfo.stockCode,
+                                                    currentPrice: stockInfo.currentPrice,
+                                                    change: stockInfo.change,
+                                                    changePercentage: stockInfo.changePercentage,
+                                                    newsUrl: stockInfo.newsUrl,
+                                                    magazineUrl: stockInfo.magazineUrl,
+                                                    economistUrl: stockInfo.economistUrl,
+                                                    predict5_Data: transformedData + predict5Price_transformed,
+                                                    predict10_Data: transformedData + predict10Price_transformed,
+                                                    predictSentiment: stockInfo.sentiment,
+                                                    current_Data: transformedData)
+                
+                self.predictStockData = predictStockData
+                
+                //주가 그래프 뷰 세팅
+                self.predictLineChartView = self.configureChartView(isPredict: true, color: UIColor.stockInsightBlue, chartDataType: .presentPrice)
+                self.indexLineChartView = self.configureChartView(isPredict: true, color: UIColor.systemOrange, chartDataType: .KOSPI)
+                self.predicePriceView.addSubview(self.predictLineChartView)
+                self.indexView.addSubview(self.indexLineChartView)
+                self.predictViewLabeSetting(type: .KOSPI)
+                self.predictViewLabeSetting(type: .presentPrice)
+                
+                
+                print("=========================")
+                print("self.predictStockData.predict5_Data = \(predictStockData.predict5_Data)")
+                
+//                print("transformedData = \(transformedData)")
+            }
+        }
+        
+        
+        
+
+        
+     
+        
+        // 문자열을 Date로 변환하는 함수
+        func convertToDate(_ dateString: String) -> Date? {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            return dateFormatter.date(from: dateString)
+        }
+    }
+    
+    
     //토큰 임시 발행 및 유저 저장 함수
     func setUser_dummy(){
         //토큰 저장
@@ -583,11 +689,14 @@ class MainViewContoller: UIViewController {
                 
                 guard let presentStockData = data as? StockInfo2 else {return}
                 self.presentStockData = presentStockData.stockInfo
+                
+                self.getPredictStock(stockCode: presentStockData.stockInfo.stockCode, stockInfo: presentStockData.stockInfo)
+                
                 self.predictViewLabeSetting(type: .presentPrice)
                 
                 guard let stockName = self.presentStockData?.stockName else {return}
                 self.getPresentStock_Dummy(stockName: stockName)
-                print("===presentStockData = \(presentStockData)=========")
+                //print("===presentStockData.predixt10Prices = \(self.presentStockData?.predict10Prices)=========")
             case .requestErr(let msg):
                 //API 시간 초과
                 if let message = msg as? String {

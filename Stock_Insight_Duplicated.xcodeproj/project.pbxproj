@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C112868B2ABC554B00A64C6D /* SwiftYFinance in Frameworks */ = {isa = PBXBuildFile; productRef = C112868A2ABC554B00A64C6D /* SwiftYFinance */; };
 		C12BA2E82AA694E80094334E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12BA2E72AA694E80094334E /* AppDelegate.swift */; };
 		C12BA2EA2AA694E80094334E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12BA2E92AA694E80094334E /* SceneDelegate.swift */; };
 		C12BA2EC2AA694E80094334E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12BA2EB2AA694E80094334E /* ViewController.swift */; };
@@ -41,7 +42,7 @@
 		C13772CE2AA6A19400462E11 /* DateAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13772CD2AA6A19400462E11 /* DateAxisValueFormatter.swift */; };
 		C13772D12AA6A1FC00462E11 /* GetStockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13772D02AA6A1FC00462E11 /* GetStockService.swift */; };
 		C13772D32AA6A21900462E11 /* GetIndexService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13772D22AA6A21900462E11 /* GetIndexService.swift */; };
-		C13772D52AA6A22C00462E11 /* GetStockDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13772D42AA6A22C00462E11 /* GetStockDataService.swift */; };
+		C13772D52AA6A22C00462E11 /* GetStockFromYFService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13772D42AA6A22C00462E11 /* GetStockFromYFService.swift */; };
 		C13772D82AA6A24C00462E11 /* BookmarkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13772D72AA6A24C00462E11 /* BookmarkService.swift */; };
 		C13772DA2AA6A3DF00462E11 /* 5d_predict_SE00.csv in Resources */ = {isa = PBXBuildFile; fileRef = C13772D92AA6A3DF00462E11 /* 5d_predict_SE00.csv */; };
 		C13772E42AA6A3E800462E11 /* dataset_SE.csv in Resources */ = {isa = PBXBuildFile; fileRef = C13772DB2AA6A3E800462E11 /* dataset_SE.csv */; };
@@ -99,7 +100,7 @@
 		C13772CD2AA6A19400462E11 /* DateAxisValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAxisValueFormatter.swift; sourceTree = "<group>"; };
 		C13772D02AA6A1FC00462E11 /* GetStockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStockService.swift; sourceTree = "<group>"; };
 		C13772D22AA6A21900462E11 /* GetIndexService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetIndexService.swift; sourceTree = "<group>"; };
-		C13772D42AA6A22C00462E11 /* GetStockDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStockDataService.swift; sourceTree = "<group>"; };
+		C13772D42AA6A22C00462E11 /* GetStockFromYFService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStockFromYFService.swift; sourceTree = "<group>"; };
 		C13772D72AA6A24C00462E11 /* BookmarkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkService.swift; sourceTree = "<group>"; };
 		C13772D92AA6A3DF00462E11 /* 5d_predict_SE00.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 5d_predict_SE00.csv; sourceTree = "<group>"; };
 		C13772DB2AA6A3E800462E11 /* dataset_SE.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dataset_SE.csv; sourceTree = "<group>"; };
@@ -124,6 +125,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F00A4795768C45BDBA7DA95D /* libPods-Stock_Insight_Duplicated.a in Frameworks */,
+				C112868B2ABC554B00A64C6D /* SwiftYFinance in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,7 +387,7 @@
 			children = (
 				C13772D02AA6A1FC00462E11 /* GetStockService.swift */,
 				C13772D22AA6A21900462E11 /* GetIndexService.swift */,
-				C13772D42AA6A22C00462E11 /* GetStockDataService.swift */,
+				C13772D42AA6A22C00462E11 /* GetStockFromYFService.swift */,
 			);
 			path = Stock;
 			sourceTree = "<group>";
@@ -424,6 +426,9 @@
 			dependencies = (
 			);
 			name = Stock_Insight_Duplicated;
+			packageProductDependencies = (
+				C112868A2ABC554B00A64C6D /* SwiftYFinance */,
+			);
 			productName = Stock_Insight_Duplicated;
 			productReference = C12BA2E42AA694E80094334E /* Stock_Insight_Duplicated.app */;
 			productType = "com.apple.product-type.application";
@@ -452,6 +457,9 @@
 				Base,
 			);
 			mainGroup = C12BA2DB2AA694E80094334E;
+			packageReferences = (
+				C11286892ABC554B00A64C6D /* XCRemoteSwiftPackageReference "SwiftYFinance" */,
+			);
 			productRefGroup = C12BA2E52AA694E80094334E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -520,7 +528,7 @@
 				C12BA2FF2AA695D90094334E /* LogInViewController.swift in Sources */,
 				C13772CC2AA6A10800462E11 /* UIColor.swift in Sources */,
 				C12BA2EC2AA694E80094334E /* ViewController.swift in Sources */,
-				C13772D52AA6A22C00462E11 /* GetStockDataService.swift in Sources */,
+				C13772D52AA6A22C00462E11 /* GetStockFromYFService.swift in Sources */,
 				C13772A32AA69A6600462E11 /* NetworkResult.swift in Sources */,
 				C137729A2AA699D200462E11 /* SignUpService.swift in Sources */,
 				C13772A92AA69BE800462E11 /* Stock.swift in Sources */,
@@ -770,6 +778,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C11286892ABC554B00A64C6D /* XCRemoteSwiftPackageReference "SwiftYFinance" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AlexRoar/SwiftYFinance";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C112868A2ABC554B00A64C6D /* SwiftYFinance */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C11286892ABC554B00A64C6D /* XCRemoteSwiftPackageReference "SwiftYFinance" */;
+			productName = SwiftYFinance;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C12BA2DC2AA694E80094334E /* Project object */;
 }

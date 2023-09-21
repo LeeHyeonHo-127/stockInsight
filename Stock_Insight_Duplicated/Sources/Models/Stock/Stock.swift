@@ -40,18 +40,18 @@ struct Stock_Dummy{
 struct PredictStock: Codable{
     var stockName: String
     var stockCode: String
-    var currentPrice: Double
-    var change: Double
-    var changePercentage: Double
+    var currentPrice: String
+    var change: String
+    var changePercentage: String
     
     var newsUrl: String //MK
     var magazineUrl: String //한경
     var economistUrl: String //이코노미스트
     
-    var predict5_Data: [[Double:String]]
-    var predict10_Data: [[Double:String]]
-    var predictSentiment: [[Double:String]]
-    var current_Data: [[Double:String]]
+    var predict5_Data: [[Date: Double]]
+    var predict10_Data: [[Date: Double]]
+    var predictSentiment: Int
+    var current_Data: [[Date: Double]]
 
 }
 
