@@ -28,6 +28,7 @@ struct SignUpService{
             "resetAnswer" : resetAnswer
         ]
 
+        print("SignUpService - signUp() in")
         
         let dataRequest = AF.request(url,
                                      method: .post,
@@ -56,6 +57,8 @@ struct SignUpService{
 
         let msg1 = "회원가입 성공"
         let msg2 = "회원가입 실패"
+        print("SignUpService - doSignUp() in")
+        print("Status = \(status)")
         
         switch status {
         case 200:

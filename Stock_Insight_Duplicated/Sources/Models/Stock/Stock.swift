@@ -50,7 +50,9 @@ struct PredictStock: Codable{
     
     var predict5_Data: [[Double:String]]
     var predict10_Data: [[Double:String]]
+    var predictSentiment: [[Double:String]]
     var current_Data: [[Double:String]]
+
 }
 
 //decoding 연습1
@@ -65,9 +67,11 @@ struct StockInfo: Codable {
     let currentPrice: String
     let change: String
     let changePercentage: String
+    
     let newsUrl: String
     let magazineUrl: String
     let economistUrl: String
+    
     let sentiment: Int
     let predict5Prices: [PredictedPrice]
     let predict10Prices: [PredictedPrice]

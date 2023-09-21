@@ -10,7 +10,6 @@ enum ChartDataType: String{
     case KOSPI = "KOSPI"
     case KOSDAQ = "KOSDAQ"
     case KOSPI200 = "KOSPI200"
-    
 }
 
 
@@ -90,7 +89,7 @@ class MainViewContoller: UIViewController {
         
         
         
-        self.getPresentStockWithAPI(stockName: "하이브") //현재 보여질 주식에 대한 값 가져오기
+        self.getPresentStockWithAPI(stockName: "삼성전자") //현재 보여질 주식에 대한 값 가져오기
         
         
         
@@ -182,6 +181,9 @@ class MainViewContoller: UIViewController {
         self.indexView.layer.cornerRadius = 5
     }
     
+   
+
+    
     //라벨 뷰 세팅 함수
     func predictViewLabeSetting(type: ChartDataType){
         //예측 값이 얼마나 올랐는지 계산하는 코드 필요
@@ -230,12 +232,16 @@ class MainViewContoller: UIViewController {
         let everyDayEconodyViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(everyDayEconomyHandleTap(_:)))
         let hankyungBusinessViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(hankyungBusinessHandleTap(_:)))
         let economistViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(economistHandleTap(_:)))
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+
         
-        
+        view.addGestureRecognizer(gesture)
         self.everyDayEconomyView.addGestureRecognizer(everyDayEconodyViewTapGesture)
         self.hankyungBusinessView.addGestureRecognizer(hankyungBusinessViewTapGesture)
         self.economistView.addGestureRecognizer(economistViewTapGesture)
     }
+    
+
     
     
     //chartView 생성
@@ -690,9 +696,6 @@ class MainViewContoller: UIViewController {
     }
     
     
-    
-    
-    
     @objc func everyDayEconomyHandleTap(_ gesture: UITapGestureRecognizer) {
         if gesture.state == .ended {
             guard let urlString = self.presentStockData_Dummy?.magazineUrl else {return}
@@ -721,6 +724,10 @@ class MainViewContoller: UIViewController {
         }
     }
     
+    @objc func handleTap() {
+        // 화면이 터치되면 키보드를 내리는 메서드 호출
+        view.endEditing(true)
+    }
     
     func createDates(year: Int, holidays: [String], weekends: [Int]) -> [Date] {
         var dates: [Date] = []
@@ -910,9 +917,7 @@ extension MainViewContoller: ChartViewDelegate{
         
         
         let dataSetIndex = highlight.dataSetIndex
-        print("hilight = \(highlight)")
-        print("y value = \(highlight.y)")
-        print("dataSetIndex = \(dataSetIndex)")
+
         let value = chartView_.data?.dataSets[dataSetIndex].entryForIndex(Int(highlight.x))?.y
         
         let dateFormatter = DateAxisValueFormatter()

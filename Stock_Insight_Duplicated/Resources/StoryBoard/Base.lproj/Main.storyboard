@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KRv-s1-gQE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KRv-s1-gQE">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -46,7 +47,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nzb-Um-W67">
-                                <rect key="frame" x="56.666666666666657" y="482.33333333333331" width="280" height="39.999999999999943"/>
+                                <rect key="frame" x="56.666666666666657" y="462.33333333333331" width="280" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="V9w-6K-u1G"/>
                                     <constraint firstAttribute="width" constant="280" id="xkj-5e-6HI"/>
@@ -64,7 +65,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4C9-rb-PTs">
-                                <rect key="frame" x="228.66666666666663" y="553.33333333333337" width="108" height="21"/>
+                                <rect key="frame" x="228.66666666666663" y="533.33333333333337" width="108" height="21"/>
                                 <color key="tintColor" systemColor="tintColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="비밀번호 재발급" cornerStyle="medium">
@@ -79,7 +80,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="비밀번호" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ikn-3L-f84">
-                                <rect key="frame" x="56.666666666666657" y="435.33333333333331" width="280" height="42"/>
+                                <rect key="frame" x="56.666666666666657" y="415.33333333333331" width="280" height="42"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="280" id="Ww8-X4-EVn"/>
@@ -95,25 +96,25 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STOCK INSIGHT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKG-AK-dt9">
-                                <rect key="frame" x="85.666666666666686" y="323" width="222" height="45.333333333333314"/>
+                                <rect key="frame" x="85.666666666666686" y="303" width="222" height="45.333333333333314"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="37"/>
                                 <color key="textColor" systemColor="systemGreenColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아직 회원이 아니신가요?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AVa-5t-yOr">
-                                <rect key="frame" x="56.666666666666657" y="527.33333333333337" width="165" height="21"/>
+                                <rect key="frame" x="56.666666666666657" y="507.33333333333326" width="165" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비밀번호를 잊으셨나요?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5H-V9-3dQ">
-                                <rect key="frame" x="56.666666666666657" y="553.33333333333337" width="160" height="20.333333333333371"/>
+                                <rect key="frame" x="56.666666666666657" y="533.33333333333337" width="160" height="20.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sUF-rl-29J">
-                                <rect key="frame" x="246.66666666666663" y="527.33333333333337" width="90" height="21"/>
+                                <rect key="frame" x="246.66666666666663" y="507.33333333333326" width="90" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="1sO-pm-d0S"/>
                                     <constraint firstAttribute="height" constant="21" id="uSG-vG-vgg"/>
@@ -125,7 +126,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="아이디" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gGE-Vb-ZLE">
-                                <rect key="frame" x="56.666666666666657" y="388.33333333333331" width="280" height="42"/>
+                                <rect key="frame" x="56.666666666666657" y="368.33333333333331" width="280" height="42"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="7cY-b6-3gV"/>
@@ -145,7 +146,7 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="gGE-Vb-ZLE" firstAttribute="centerX" secondItem="mJf-Uh-OkF" secondAttribute="centerX" id="2Gq-p4-dlF"/>
-                            <constraint firstItem="hKG-AK-dt9" firstAttribute="top" secondItem="0RJ-go-3pT" secondAttribute="top" constant="220" id="3xM-OF-lPN"/>
+                            <constraint firstItem="hKG-AK-dt9" firstAttribute="top" secondItem="0RJ-go-3pT" secondAttribute="top" constant="200" id="3xM-OF-lPN"/>
                             <constraint firstItem="sUF-rl-29J" firstAttribute="trailing" secondItem="nzb-Um-W67" secondAttribute="trailing" id="8CX-fC-WcV"/>
                             <constraint firstItem="ikn-3L-f84" firstAttribute="centerX" secondItem="mJf-Uh-OkF" secondAttribute="centerX" id="EJi-DA-1OI"/>
                             <constraint firstItem="v5H-V9-3dQ" firstAttribute="leading" secondItem="AVa-5t-yOr" secondAttribute="leading" id="IIy-Cn-msY"/>
@@ -197,13 +198,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="사용자 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NIP-ax-Gzv">
-                                <rect key="frame" x="56.666666666666664" y="209.66666666666666" width="67.666666666666686" height="18.333333333333343"/>
+                                <rect key="frame" x="56.666666666666664" y="129.66666666666666" width="67.666666666666686" height="18.333333333333343"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="사용자이름" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KSM-oM-OUg">
-                                <rect key="frame" x="56.666666666666657" y="233" width="280" height="42"/>
+                                <rect key="frame" x="56.666666666666657" y="153" width="280" height="42"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="280" id="Icu-g0-NAm"/>
@@ -219,19 +220,19 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아이디" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4A0-m9-Vdg">
-                                <rect key="frame" x="56.666666666666657" y="280" width="39" height="18.333333333333314"/>
+                                <rect key="frame" x="56.666666666666657" y="200" width="39" height="18.333333333333343"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비밀번호" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aru-KQ-yeu">
-                                <rect key="frame" x="56.666666666666657" y="350.33333333333331" width="52" height="18.333333333333314"/>
+                                <rect key="frame" x="56.666666666666657" y="270.33333333333331" width="52" height="18.333333333333314"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="아이디" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eON-VP-aLd">
-                                <rect key="frame" x="56.666666666666657" y="303.33333333333331" width="280" height="42"/>
+                                <rect key="frame" x="56.666666666666657" y="223.33333333333334" width="280" height="42.000000000000028"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="280" id="IrJ-XN-oX1"/>
@@ -247,7 +248,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="비밀번호" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rk6-0R-Chk">
-                                <rect key="frame" x="56.666666666666657" y="373.66666666666669" width="280" height="42"/>
+                                <rect key="frame" x="56.666666666666657" y="293.66666666666669" width="280" height="42"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="B6F-0Z-AFM"/>
@@ -263,7 +264,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="비밀번호 확인" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uJT-DY-rvB">
-                                <rect key="frame" x="56.666666666666657" y="444.66666666666669" width="280" height="42"/>
+                                <rect key="frame" x="56.666666666666657" y="364.66666666666669" width="280" height="42"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="42" id="3fY-x4-HNH"/>
@@ -279,13 +280,13 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비밀번호 확인" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aN4-bM-ggh">
-                                <rect key="frame" x="56.666666666666657" y="420.66666666666669" width="81" height="19"/>
+                                <rect key="frame" x="56.666666666666657" y="340.66666666666669" width="81" height="19"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Ocl-Ug-4VT">
-                                <rect key="frame" x="140.66666666666666" y="423.66666666666669" width="15" height="13.666666666666686"/>
+                                <rect key="frame" x="140.66666666666666" y="343.66666666666669" width="15" height="13.666666666666686"/>
                                 <color key="tintColor" systemColor="tintColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="15" id="DJx-6Y-euO"/>
@@ -293,13 +294,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비밀번호 재발급을 위한 퀴즈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2VY-EH-har">
-                                <rect key="frame" x="56.666666666666657" y="491.66666666666669" width="164" height="19"/>
+                                <rect key="frame" x="56.666666666666657" y="411.66666666666669" width="164" height="19"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="퀴즈를 선택해 주세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F6H-ua-iNp">
-                                <rect key="frame" x="56.666666666666657" y="515.66666666666663" width="280" height="42"/>
+                                <rect key="frame" x="56.666666666666657" y="435.66666666666669" width="280" height="42"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="280" id="Z3Z-S5-7K1"/>
@@ -315,13 +316,13 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="퀴즈 정답" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CpL-GY-ysB">
-                                <rect key="frame" x="56.666666666666657" y="562.66666666666663" width="55" height="19"/>
+                                <rect key="frame" x="56.666666666666657" y="482.66666666666669" width="55" height="19"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="퀴즈 정답을 입력해 주세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rqy-qn-gV5">
-                                <rect key="frame" x="56.666666666666657" y="586.66666666666663" width="280" height="42"/>
+                                <rect key="frame" x="56.666666666666657" y="506.66666666666674" width="280" height="42"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="280" id="5Rh-AM-VBF"/>
@@ -337,7 +338,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5kV-KV-FgI">
-                                <rect key="frame" x="56.666666666666657" y="648.66666666666663" width="280" height="45"/>
+                                <rect key="frame" x="56.666666666666657" y="568.66666666666663" width="280" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="RzX-LH-SZc"/>
                                     <constraint firstAttribute="width" constant="280" id="WyI-FM-xvj"/>
@@ -355,7 +356,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="회원가입 하기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nsa-W6-Ijr">
-                                <rect key="frame" x="56.666666666666671" y="119.00000000000001" width="134.33333333333331" height="30.666666666666671"/>
+                                <rect key="frame" x="56.666666666666671" y="79" width="134.33333333333331" height="30.666666666666671"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -374,12 +375,12 @@
                             <constraint firstItem="Ocl-Ug-4VT" firstAttribute="centerY" secondItem="aN4-bM-ggh" secondAttribute="centerY" id="EBz-ri-fGG"/>
                             <constraint firstItem="aru-KQ-yeu" firstAttribute="leading" secondItem="eON-VP-aLd" secondAttribute="leading" id="KNq-1w-bM3"/>
                             <constraint firstItem="Ocl-Ug-4VT" firstAttribute="leading" secondItem="aN4-bM-ggh" secondAttribute="trailing" constant="3" id="NxJ-Wx-8Y6"/>
-                            <constraint firstItem="NIP-ax-Gzv" firstAttribute="top" secondItem="nsa-W6-Ijr" secondAttribute="bottom" constant="60" id="Oeh-nF-3Iw"/>
+                            <constraint firstItem="NIP-ax-Gzv" firstAttribute="top" secondItem="nsa-W6-Ijr" secondAttribute="bottom" constant="20" id="Oeh-nF-3Iw"/>
                             <constraint firstItem="nsa-W6-Ijr" firstAttribute="leading" secondItem="NIP-ax-Gzv" secondAttribute="leading" id="PpB-dn-H34"/>
                             <constraint firstItem="aN4-bM-ggh" firstAttribute="leading" secondItem="rk6-0R-Chk" secondAttribute="leading" id="Px6-oS-OPJ"/>
                             <constraint firstItem="aN4-bM-ggh" firstAttribute="top" secondItem="rk6-0R-Chk" secondAttribute="bottom" constant="5" id="SYl-h0-XI6"/>
                             <constraint firstItem="rqy-qn-gV5" firstAttribute="top" secondItem="CpL-GY-ysB" secondAttribute="bottom" constant="5" id="T6A-5Q-NBz"/>
-                            <constraint firstItem="nsa-W6-Ijr" firstAttribute="top" secondItem="GXy-8P-LR6" secondAttribute="top" constant="60" id="UaR-tn-ZeG"/>
+                            <constraint firstItem="nsa-W6-Ijr" firstAttribute="top" secondItem="GXy-8P-LR6" secondAttribute="top" constant="20" id="UaR-tn-ZeG"/>
                             <constraint firstItem="eON-VP-aLd" firstAttribute="top" secondItem="4A0-m9-Vdg" secondAttribute="bottom" constant="5" id="VxG-wg-OTr"/>
                             <constraint firstItem="4A0-m9-Vdg" firstAttribute="leading" secondItem="KSM-oM-OUg" secondAttribute="leading" id="Zwl-kj-8Zk"/>
                             <constraint firstItem="CpL-GY-ysB" firstAttribute="top" secondItem="F6H-ua-iNp" secondAttribute="bottom" constant="5" id="a6t-eD-ffM"/>
@@ -420,13 +421,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아이디" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jjg-xU-SxP">
-                                <rect key="frame" x="56.666666666666657" y="210" width="39" height="19"/>
+                                <rect key="frame" x="56.666666666666657" y="130" width="39" height="19"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="아이디" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HqS-Lv-at3">
-                                <rect key="frame" x="56.666666666666657" y="234" width="280" height="42"/>
+                                <rect key="frame" x="56.666666666666657" y="154" width="280" height="42"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="280" id="Cxj-z4-fOS"/>
@@ -442,13 +443,13 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비밀번호" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h4W-zI-7Gl">
-                                <rect key="frame" x="56.666666666666657" y="281" width="52" height="19"/>
+                                <rect key="frame" x="56.666666666666657" y="201" width="52" height="19"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="비밀번호 확인" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wxk-Qc-Zhe">
-                                <rect key="frame" x="56.666666666666657" y="376" width="280" height="42"/>
+                                <rect key="frame" x="56.666666666666657" y="296" width="280" height="42"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="42" id="Bqn-5b-iFr"/>
@@ -464,13 +465,13 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비밀번호 확인" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uWY-F4-oaZ">
-                                <rect key="frame" x="56.666666666666657" y="352" width="81" height="19"/>
+                                <rect key="frame" x="56.666666666666657" y="272" width="81" height="19"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="KWr-Og-MoB">
-                                <rect key="frame" x="140.66666666666666" y="355" width="15" height="13.666666666666686"/>
+                                <rect key="frame" x="140.66666666666666" y="275" width="15" height="13.666666666666686"/>
                                 <color key="tintColor" systemColor="tintColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="CXQ-Xg-fi2"/>
@@ -478,13 +479,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비밀번호 재발급을 위한 퀴즈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="axZ-8q-wKW">
-                                <rect key="frame" x="56.666666666666657" y="423" width="164" height="19"/>
+                                <rect key="frame" x="56.666666666666657" y="343" width="164" height="19"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="퀴즈를 선택해 주세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WpA-2I-Asi">
-                                <rect key="frame" x="56.666666666666657" y="447" width="280" height="42"/>
+                                <rect key="frame" x="56.666666666666657" y="367" width="280" height="42"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="42" id="91b-J2-krW"/>
@@ -500,13 +501,13 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="퀴즈 정답" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ELQ-As-RDP">
-                                <rect key="frame" x="56.666666666666657" y="494" width="55" height="19"/>
+                                <rect key="frame" x="56.666666666666657" y="414" width="55" height="19"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="퀴즈 정답을 입력해 주세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EDo-pB-Irt">
-                                <rect key="frame" x="56.666666666666657" y="518" width="280" height="42"/>
+                                <rect key="frame" x="56.666666666666657" y="438" width="280" height="42"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="280" id="8Ks-41-auG"/>
@@ -522,7 +523,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rGI-Xi-wHV">
-                                <rect key="frame" x="56.666666666666657" y="580" width="280" height="45"/>
+                                <rect key="frame" x="56.666666666666657" y="500" width="280" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="CgL-Jg-Tcn"/>
                                     <constraint firstAttribute="width" constant="280" id="J7m-AQ-ooG"/>
@@ -540,13 +541,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비밀번호 재발급받기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdg-x8-tMc">
-                                <rect key="frame" x="56.666666666666657" y="119" width="199.99999999999997" height="31"/>
+                                <rect key="frame" x="56.666666666666657" y="79" width="199.99999999999997" height="31"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="비밀번호" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4ho-r5-3U5">
-                                <rect key="frame" x="56.666666666666657" y="305" width="280" height="42"/>
+                                <rect key="frame" x="56.666666666666657" y="225" width="280" height="42"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="280" id="4LU-Er-cR1"/>
@@ -565,7 +566,7 @@
                         <viewLayoutGuide key="safeArea" id="jJg-Af-77z"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="hdg-x8-tMc" firstAttribute="top" secondItem="jJg-Af-77z" secondAttribute="top" constant="60" id="0gz-Xu-GXv"/>
+                            <constraint firstItem="hdg-x8-tMc" firstAttribute="top" secondItem="jJg-Af-77z" secondAttribute="top" constant="20" id="0gz-Xu-GXv"/>
                             <constraint firstItem="WpA-2I-Asi" firstAttribute="leading" secondItem="axZ-8q-wKW" secondAttribute="leading" id="14H-cn-N1k"/>
                             <constraint firstItem="WpA-2I-Asi" firstAttribute="top" secondItem="axZ-8q-wKW" secondAttribute="bottom" constant="5" id="4Cf-QY-LYB"/>
                             <constraint firstItem="h4W-zI-7Gl" firstAttribute="top" secondItem="HqS-Lv-at3" secondAttribute="bottom" constant="5" id="4T2-2e-iNq"/>
@@ -589,7 +590,7 @@
                             <constraint firstItem="rGI-Xi-wHV" firstAttribute="leading" secondItem="EDo-pB-Irt" secondAttribute="leading" id="h9a-yS-VuJ"/>
                             <constraint firstItem="h4W-zI-7Gl" firstAttribute="leading" secondItem="HqS-Lv-at3" secondAttribute="leading" id="sWv-RW-iQg"/>
                             <constraint firstItem="ELQ-As-RDP" firstAttribute="top" secondItem="WpA-2I-Asi" secondAttribute="bottom" constant="5" id="u9R-At-e4y"/>
-                            <constraint firstItem="Jjg-xU-SxP" firstAttribute="top" secondItem="hdg-x8-tMc" secondAttribute="bottom" constant="60" id="zXf-U4-sgG"/>
+                            <constraint firstItem="Jjg-xU-SxP" firstAttribute="top" secondItem="hdg-x8-tMc" secondAttribute="bottom" constant="20" id="zXf-U4-sgG"/>
                             <constraint firstItem="wxk-Qc-Zhe" firstAttribute="leading" secondItem="uWY-F4-oaZ" secondAttribute="leading" id="ziO-UV-7Bz"/>
                         </constraints>
                     </view>
@@ -1754,19 +1755,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="회원 탈퇴하기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tSo-tq-mQD">
-                                <rect key="frame" x="56.666666666666657" y="119" width="135" height="31"/>
+                                <rect key="frame" x="56.666666666666657" y="79" width="135" height="31"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아이디" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YgU-k5-EdL">
-                                <rect key="frame" x="56.666666666666657" y="210" width="39" height="19"/>
+                                <rect key="frame" x="56.666666666666657" y="130" width="39" height="19"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="아이디" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S6Q-2X-p4b">
-                                <rect key="frame" x="56.666666666666657" y="234" width="280" height="42"/>
+                                <rect key="frame" x="56.666666666666657" y="154" width="280" height="42"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="42" id="FiM-xf-qjI"/>
@@ -1782,13 +1783,13 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비밀번호" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yL9-N7-HOl">
-                                <rect key="frame" x="56.666666666666657" y="281" width="52" height="19"/>
+                                <rect key="frame" x="56.666666666666657" y="201" width="52" height="19"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="비밀번호 확인" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6qw-Tf-ynR">
-                                <rect key="frame" x="56.666666666666657" y="376" width="280" height="42"/>
+                                <rect key="frame" x="56.666666666666657" y="296" width="280" height="42"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="42" id="ZLu-Jd-hUr"/>
@@ -1804,13 +1805,13 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비밀번호 확인" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ew7-Ab-hjA">
-                                <rect key="frame" x="56.666666666666657" y="352" width="81" height="19"/>
+                                <rect key="frame" x="56.666666666666657" y="272" width="81" height="19"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4CX-5v-Pur">
-                                <rect key="frame" x="140.66666666666666" y="355" width="15" height="13.666666666666686"/>
+                                <rect key="frame" x="140.66666666666666" y="275" width="15" height="13.666666666666686"/>
                                 <color key="tintColor" systemColor="tintColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="LUK-JK-4MJ"/>
@@ -1818,13 +1819,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비밀번호 재발급을 위한 퀴즈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FfD-8n-TOV">
-                                <rect key="frame" x="56.666666666666657" y="423" width="164" height="19"/>
+                                <rect key="frame" x="56.666666666666657" y="343" width="164" height="19"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="퀴즈를 선택해 주세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gs9-Jl-5iA">
-                                <rect key="frame" x="56.666666666666657" y="447" width="280" height="42"/>
+                                <rect key="frame" x="56.666666666666657" y="367" width="280" height="42"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="280" id="3IB-Eq-bLp"/>
@@ -1840,13 +1841,13 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="퀴즈 정답" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M0X-Di-i3n">
-                                <rect key="frame" x="56.666666666666657" y="494" width="55" height="19"/>
+                                <rect key="frame" x="56.666666666666657" y="414" width="55" height="19"/>
                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="퀴즈 정답을 입력해 주세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ro2-gI-W6K">
-                                <rect key="frame" x="56.666666666666657" y="518" width="280" height="42"/>
+                                <rect key="frame" x="56.666666666666657" y="438" width="280" height="42"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="280" id="57g-Gg-AQI"/>
@@ -1862,7 +1863,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ycN-qT-faJ">
-                                <rect key="frame" x="56.666666666666657" y="580" width="280" height="45"/>
+                                <rect key="frame" x="56.666666666666657" y="500" width="280" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="280" id="73M-Aa-PwE"/>
                                     <constraint firstAttribute="height" constant="45" id="nN1-5d-wrc"/>
@@ -1880,7 +1881,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="비밀번호" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pbh-qX-WAQ">
-                                <rect key="frame" x="56.666666666666657" y="305" width="280" height="42"/>
+                                <rect key="frame" x="56.666666666666657" y="225" width="280" height="42"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="PSC-h8-kjn"/>
@@ -1905,7 +1906,7 @@
                             <constraint firstItem="tSo-tq-mQD" firstAttribute="leading" secondItem="S6Q-2X-p4b" secondAttribute="leading" id="E7O-sa-OQL"/>
                             <constraint firstItem="yL9-N7-HOl" firstAttribute="top" secondItem="S6Q-2X-p4b" secondAttribute="bottom" constant="5" id="Fon-bF-cvr"/>
                             <constraint firstItem="6qw-Tf-ynR" firstAttribute="leading" secondItem="ew7-Ab-hjA" secondAttribute="leading" id="H96-vi-qGB"/>
-                            <constraint firstItem="tSo-tq-mQD" firstAttribute="top" secondItem="xQV-6H-fvh" secondAttribute="top" constant="60" id="HbV-63-PLF"/>
+                            <constraint firstItem="tSo-tq-mQD" firstAttribute="top" secondItem="xQV-6H-fvh" secondAttribute="top" constant="20" id="HbV-63-PLF"/>
                             <constraint firstItem="Ro2-gI-W6K" firstAttribute="leading" secondItem="M0X-Di-i3n" secondAttribute="leading" id="Kmd-Vp-Zxg"/>
                             <constraint firstItem="FfD-8n-TOV" firstAttribute="top" secondItem="6qw-Tf-ynR" secondAttribute="bottom" constant="5" id="LlF-wC-xUC"/>
                             <constraint firstItem="4CX-5v-Pur" firstAttribute="centerY" secondItem="ew7-Ab-hjA" secondAttribute="centerY" id="MiG-Bc-WzO"/>
@@ -1915,7 +1916,7 @@
                             <constraint firstItem="S6Q-2X-p4b" firstAttribute="centerX" secondItem="UgG-it-19a" secondAttribute="centerX" id="ZMj-17-rWA"/>
                             <constraint firstItem="ycN-qT-faJ" firstAttribute="top" secondItem="Ro2-gI-W6K" secondAttribute="bottom" constant="20" id="azT-0a-ca6"/>
                             <constraint firstItem="M0X-Di-i3n" firstAttribute="leading" secondItem="gs9-Jl-5iA" secondAttribute="leading" id="cUX-Bx-beB"/>
-                            <constraint firstItem="YgU-k5-EdL" firstAttribute="top" secondItem="tSo-tq-mQD" secondAttribute="bottom" constant="60" id="eiw-8s-350"/>
+                            <constraint firstItem="YgU-k5-EdL" firstAttribute="top" secondItem="tSo-tq-mQD" secondAttribute="bottom" constant="20" id="eiw-8s-350"/>
                             <constraint firstItem="gs9-Jl-5iA" firstAttribute="top" secondItem="FfD-8n-TOV" secondAttribute="bottom" constant="5" id="euJ-dZ-uFe"/>
                             <constraint firstItem="Pbh-qX-WAQ" firstAttribute="top" secondItem="yL9-N7-HOl" secondAttribute="bottom" constant="5" id="g6w-gl-RaY"/>
                             <constraint firstItem="ew7-Ab-hjA" firstAttribute="top" secondItem="Pbh-qX-WAQ" secondAttribute="bottom" constant="5" id="gj0-e7-W3o"/>
@@ -2509,7 +2510,7 @@
         <image name="checkmark.circle.fill" catalog="system" width="128" height="123"/>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
-        <image name="pencil.line" catalog="system" width="128" height="98"/>
+        <image name="pencil.line" catalog="system" width="128" height="117"/>
         <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
@@ -2517,19 +2518,19 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
-            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tintColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

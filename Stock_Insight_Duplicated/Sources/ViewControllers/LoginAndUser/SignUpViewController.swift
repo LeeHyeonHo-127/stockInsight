@@ -37,6 +37,7 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         self.configureTexFieldAndButton()
         self.configPickerView()
+        self.addTouchGesture_stopEditing()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,6 +46,16 @@ class SignUpViewController: UIViewController {
     
 
     //MARK: - 설정 함수
+    
+    //화면 터치시 키보드 내리는 제스쳐 추가
+    func addTouchGesture_stopEditing(){
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        view.addGestureRecognizer(gesture)
+    }
+    @objc func handleTap() {
+        // 화면이 터치되면 키보드를 내리는 메서드 호출
+        view.endEditing(true)
+    }
     
     //pickerView 설정 함수
     func configPickerView(){

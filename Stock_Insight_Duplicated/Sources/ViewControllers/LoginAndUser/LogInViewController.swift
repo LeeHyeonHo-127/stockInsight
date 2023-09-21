@@ -3,6 +3,7 @@ import Foundation
 
 class BeginNavigationController: UINavigationController{
 
+
 }
 
 //class BeginNavigationController: UINavigationController{}
@@ -25,6 +26,13 @@ class LoginViewController: UIViewController {
     //viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.addTouchGesture_stopEditing()
+        
+        if(UserManager.shared.getUser() != nil){
+            guard let viewController = self.storyboard?.instantiateViewController(withIdentifier: "TapBarController") as? UITabBarController else {return}
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(viewController, animated: true)
+        }
     }
 
     //viewWillAppear
@@ -47,6 +55,16 @@ class LoginViewController: UIViewController {
         }
         self.activityIndicator.removeFromSuperview()
     }
+    
+    //화면 터치시 키보드 내리는 제스쳐 추가
+    func addTouchGesture_stopEditing(){
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        view.addGestureRecognizer(gesture)
+    }
+    @objc func handleTap() {
+        // 화면이 터치되면 키보드를 내리는 메서드 호출
+        view.endEditing(true)
+    }
 
     //MARK: 버튼 눌렸을 시
 
@@ -61,6 +79,7 @@ class LoginViewController: UIViewController {
 //        self.navigationController?.navigationBar.isHidden = true
 //        self.navigationController?.pushViewController(viewController, animated: true)
     }
+    
     //회원가입 버튼
     @IBAction func signUpButtonTapped(_ sender: Any) {
         guard let viewController = self.storyboard?.instantiateViewController(withIdentifier: "SignUpViewController") as? SignUpViewController else {return}
