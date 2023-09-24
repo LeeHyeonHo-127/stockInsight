@@ -13,6 +13,7 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
     @IBOutlet var changePriceLabel2: UILabel!
     @IBOutlet var arrowImageView: UIImageView!
     @IBOutlet var firstChartViewStateLabel: UILabel!
+    @IBOutlet var KRWLabel: UILabel!
     
     
     @IBOutlet var secondChartViewPrice: UILabel!
@@ -46,48 +47,82 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
     
     //data
     var presentStockData: StockInfo?
+    var predictStockData: PredictStock?
     
     //dummy
     var gradientColor = UIColor.stockInsightBlue
     var datasetName: String = "5d_predict_SE00"
     
     var presentStockData_Dummy: Stock_Dummy?
+    
+    //뷰 확인 변수
+    var currentView: Int = 1
 
 
 
     //viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.settingView()
-        self.makeStarButton()
+
+      
         
         //ChartView 설정
         self.predictLineChartView = configureChartView(isPredict: true, color: UIColor.stockInsightBlue, chartDataType: .presentPrice)
         self.indexLineChartView = configureChartView(isPredict: true, color: UIColor.systemYellow,chartDataType: .presentPrice)
         self.predicePriceView.addSubview(predictLineChartView)
         self.indexView.addSubview(indexLineChartView)
+        
+        self.setGestureChartView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.backgroundColor = .black
+        self.settingView()
+        self.makeStarButton()
     }
     
     //MARK: - 설정 함수
+
+    
+    //차트뷰 제스쳐 세팅 함수
+    func setGestureChartView(){
+        let predictViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(predictViewTap))
+        let indexViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(indexViewTap))
+        
+        self.predictLineChartView.addGestureRecognizer(predictViewTapGesture)
+        self.indexLineChartView.addGestureRecognizer(indexViewTapGesture)
+        
+    }
+    
+    @objc func predictViewTap() {
+        print("===============")
+        print("currentView=1")
+        self.currentView = 1
+    }
+    
+    @objc func indexViewTap() {
+        print("===============")
+        print("currentView=2")
+        self.currentView = 2
+    }
+    
+    
     
     //라벨 뷰 세팅 함수
     func predictViewLabeSetting(type: ChartDataType){
         //예측 값이 얼마나 올랐는지 계산하는 코드 필요
-        guard let currentPrice = self.presentStockData?.currentPrice else {return}
-        guard let change = self.presentStockData?.change else {return}
-        guard let stockName = self.presentStockData?.stockName else {return}
-        guard let sentimental = self.presentStockData?.sentiment else {return}
+        guard let currentPrice = self.predictStockData?.currentPrice else {return}
+        guard let change = self.predictStockData?.change else {return}
+        guard let stockName = self.predictStockData?.stockName else {return}
+        guard let sentimental = self.predictStockData?.predictSentiment else {return}
         
         
         let changePrice = ""
         
         if(type == .sentimentalPredict){ // 감성 분석일 경우
             self.presentPriceLabel.text = " "
+            self.KRWLabel.text = ""
 
             if sentimental == 1{
                 self.changePriceLabel.text = "  [\(stockName)]의 감성분석 결과가 긍정적입니다"
@@ -96,9 +131,10 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
             }
         }else{
             //현재 주가 데이터 출력
+            self.KRWLabel.text = "KRW"
             self.stockNameLabel.text = stockName
             self.stockCodeLabel.text = self.presentStockData?.stockCode
-            self.presentPriceLabel.text = "\(Int(currentPrice)!)"
+            self.presentPriceLabel.text = currentPrice
             
             self.changePriceLabel.text = ""
             self.changePriceLabel.textColor = .systemRed
@@ -110,15 +146,15 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
     
     //뷰 세팅
     func settingView(){
-        guard let currentPrice = self.presentStockData_Dummy?.currentPrice else {return}
-        guard let change = self.presentStockData_Dummy?.change else {return}
+        guard let currentPrice = self.predictStockData?.currentPrice else {return}
+        guard let change = self.predictStockData?.change else {return}
         let changePrice = 1600
         
         //현재 주가 데이터 출력
-        self.stockNameLabel.text = "현대차"
-        self.stockCodeLabel.text = self.presentStockData_Dummy?.stockCode
-        self.presentPriceLabel.text = "\(Int(currentPrice))"
-        self.changePriceLabel.text = "+\(changePrice)(\(change)%)"
+        self.stockNameLabel.text = self.presentStockData?.stockName
+        self.stockCodeLabel.text = self.presentStockData?.stockCode
+        self.presentPriceLabel.text = currentPrice
+//        self.changePriceLabel.text = "+\(changePrice)(\(change)%)"
 
         
         //corner layer 설정
@@ -141,7 +177,7 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
         if let bookmarkList = self.getBookmarkList(){
             print("StockDetailViewController _ bookmarkList = \(bookmarkList)")
             bookmarkList.forEach{
-                if($0.stockCode == self.presentStockData_Dummy?.stockCode){
+                if($0.stockCode == self.predictStockData?.stockCode){
                     let starButton = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(starButtonTapped))
                     self.navigationItem.rightBarButtonItem = starButton
                     self.navigationItem.rightBarButtonItem?.tintColor = .systemYellow
@@ -204,11 +240,13 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
             
             switch chartDataType{
             case .presentPrice:
-                stockData = self.presentStockData_Dummy?.Prices
+                stockData = self.predictStockData?.current_Data
             case .predict5day:
-                stockData = self.presentStockData_Dummy?.dayFivePrices
+                stockData = self.predictStockData?.predict5_Data
             case .predict10day:
-                stockData = self.presentStockData_Dummy?.dayTenPrices
+                stockData = self.predictStockData?.predict10_Data
+            case .sentimentalPredict:
+                stockData = self.predictStockData?.current_Data
             
             default:
                 stockData = parseCSVFile(datasetName: "5d_predict")
@@ -289,13 +327,10 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
             }
             
             if chartDataType == .predict5day || chartDataType == .predict10day {
-                let dateString = "2023/06/07"
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy/MM/dd"
-                let date = dateFormatter.date(from: dateString)
-                let doubleValue = date?.timeIntervalSince1970
+                let date = Date()
+                let doubleValue = date.timeIntervalSince1970
                 
-                let limitLine = ChartLimitLine(limit: doubleValue!, label: "") // 특정 x 값에 대한 제한선 생성
+                let limitLine = ChartLimitLine(limit: doubleValue, label: "") // 특정 x 값에 대한 제한선 생성
                 limitLine.lineWidth = 1 // 제한선의 너비 설정
                 limitLine.lineColor = .systemRed // 제한선의 색상 설정
                 lineChartView.xAxis.addLimitLine(limitLine) // 제한선을 왼쪽 축에 추가
@@ -330,9 +365,14 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
         self.predictLineChartView = self.configureChartView(isPredict: true, color: UIColor.stockInsightBlue, chartDataType: .presentPrice)
         self.predicePriceView.addSubview(self.predictLineChartView)
         
+        self.predictViewLabeSetting(type: .presentPrice)
+        self.firstChartViewStateLabel.text = "현재 주가"
+
         self.presentPriceButton.backgroundColor = .darkGray
         self.LSTMButton.backgroundColor = .black
         self.sentimentalButton.backgroundColor = .black
+        
+        self.currentView = 1
     }
     
     //LSTM 예측 버튼
@@ -342,61 +382,84 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
         self.predictLineChartView = self.configureChartView(isPredict: true, color: UIColor.systemYellow, chartDataType: .predict5day)
         self.predicePriceView.addSubview(self.predictLineChartView)
         
+        self.predictViewLabeSetting(type: .predict5day)
+        self.firstChartViewStateLabel.text = "LSTM 예측"
+
+        
         self.presentPriceButton.backgroundColor = .black
         self.LSTMButton.backgroundColor = .darkGray
         self.sentimentalButton.backgroundColor = .black
+        
+        self.currentView = 1
     }
     
     //감성분석 예측 버튼
     @IBAction func sentimentalPredictButtonTapped(_ sender: Any) {
+        self.predictLineChartView.removeFromSuperview()
         self.predictLineChartView = self.configureChartView(isPredict: true, color: UIColor.systemGreen, chartDataType: .presentPrice)
         self.predicePriceView.addSubview(self.predictLineChartView)
         
         self.predictViewLabeSetting(type: .sentimentalPredict)
+        self.firstChartViewStateLabel.text = "감성 분석"
         
         self.presentPriceButton.backgroundColor = .black
         self.LSTMButton.backgroundColor = .black
         self.sentimentalButton.backgroundColor = .darkGray
+        
+        self.currentView = 1
     }
     
     //현재 주가 버튼 2
     @IBAction func presentPriceButton2Tapped(_ sender: Any) {
         self.indexLineChartView.removeFromSuperview()
-        self.indexLineChartView = self.configureChartView(isPredict: true, color: UIColor.systemGreen, chartDataType: .KOSPI)
+        self.indexLineChartView = self.configureChartView(isPredict: true, color: UIColor.systemGreen, chartDataType: .presentPrice)
         self.indexView.addSubview(self.indexLineChartView)
         
+        self.predictViewLabeSetting(type: .presentPrice)
+        self.secondChartViewStateLabel2.text = "현재 주가"
         
         self.presentPriceButton2.backgroundColor = .darkGray
         self.predict5DayButton.backgroundColor = .black
         self.predict10DayButton.backgroundColor = .black
+        
+        self.currentView = 2
     
     }
     
     //5일 예측 버튼
     @IBAction func predict5DayButton(_ sender: Any) {
         self.indexLineChartView.removeFromSuperview()
-        self.indexLineChartView = self.configureChartView(isPredict: true, color: UIColor.systemGreen, chartDataType: .KOSDAQ)
+        self.indexLineChartView = self.configureChartView(isPredict: true, color: UIColor.systemGreen, chartDataType: .predict5day)
         self.indexView.addSubview(self.indexLineChartView)
         
+        self.predictViewLabeSetting(type: .predict5day)
+        self.secondChartViewStateLabel2.text = "5일 예측"
         
         self.presentPriceButton2.backgroundColor = .black
         self.predict5DayButton.backgroundColor = .darkGray
         self.predict10DayButton.backgroundColor = .black
+        
+        self.currentView = 2
     }
     
     //10일 예측 버튼
     @IBAction func predict10DayButton(_ sender: Any) {
         self.indexLineChartView.removeFromSuperview()
-        self.indexLineChartView = self.configureChartView(isPredict: true, color: UIColor.systemGreen, chartDataType: .KOSPI200)
+        self.indexLineChartView = self.configureChartView(isPredict: true, color: UIColor.systemGreen, chartDataType: .predict10day)
         self.indexView.addSubview(self.indexLineChartView)
+        
+        self.predictViewLabeSetting(type: .predict10day)
+        self.secondChartViewStateLabel2.text = "10일 예측"
         
         self.presentPriceButton2.backgroundColor = .black
         self.predict5DayButton.backgroundColor = .black
         self.predict10DayButton.backgroundColor = .darkGray
+        
+        self.currentView = 2
     }
     
     @IBAction func everyDayEconomyButtonTapped(_ sender: Any) {
-        guard let urlString = self.presentStockData?.magazineUrl else {return}
+        guard let urlString = self.predictStockData?.magazineUrl else {return}
         let websiteURL = URL(string: urlString)
         if let url = websiteURL {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -404,7 +467,7 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
     }
     
     @IBAction func hankyunBusinessButtonTapped(_ sender: Any) {
-        guard let urlString = self.presentStockData?.newsUrl else {return}
+        guard let urlString = self.predictStockData?.newsUrl else {return}
         let websiteURL = URL(string: urlString)
         if let url = websiteURL {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -412,7 +475,7 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
     }
     
     @IBAction func economistButtonTapped(_ sender: Any) {
-        guard let urlString = self.presentStockData?.economistUrl else {return}
+        guard let urlString = self.predictStockData?.economistUrl else {return}
         let websiteURL = URL(string: urlString)
         if let url = websiteURL {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -426,10 +489,11 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
     //즐겨찾기 추가 함수
     func addBookmark(){
         guard let userID = UserManager.shared.getUser()?.user_id else {return}
+        print("addBookMakr _ User : \(UserManager.shared.getUser())")
         print("addBookMark _ userID : \(userID)")
         
-        guard let stockName = self.presentStockData_Dummy?.stockName else {return}
-        guard let stockCode = self.presentStockData_Dummy?.stockCode else {return}
+        guard let stockName = self.predictStockData?.stockName else {return}
+        guard let stockCode = self.predictStockData?.stockCode else {return}
         let bookmark = Bookmark(stockName: stockName, stockCode: stockCode)
         
         
@@ -444,7 +508,7 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
                 print("addBookMark _ newBookMarkList : \(newBookmarkList)")
             }
         }
-        //bookmarkList가 비어있지 않다면
+        //bookmarkList가 비어있지 않다면 
         else{
             bookmarkList!.append(bookmark)
             print("addBookMark _ 추가한 bookmarkList : \(bookmarkList)")
@@ -462,15 +526,15 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
         guard let userID = UserManager.shared.getUser()?.user_id else {return}
         print("deleteBookmark _ userID : \(userID)")
         
-        guard let stockName = self.presentStockData_Dummy?.stockName else {return}
-        guard let stockCode = self.presentStockData_Dummy?.stockCode else {return}
+        guard let stockName = self.predictStockData?.stockName else {return}
+        guard let stockCode = self.predictStockData?.stockCode else {return}
         let bookmark = Bookmark(stockName: stockName, stockCode: stockCode)
         
         var bookmarkList = self.getBookmarkList()
         
         if bookmarkList != nil{
             print("deleteBookmark _ 삭제하기 전 bookmarkList = \(bookmarkList)")
-            bookmarkList?.removeAll{$0.stockCode == self.presentStockData_Dummy?.stockCode}
+            bookmarkList?.removeAll{$0.stockCode == self.predictStockData?.stockCode}
             print("deleteBookmark _ 삭제한 후 bookmarkList = \(bookmarkList)")
             
             if let bookmarkListEncoded = try? JSONEncoder().encode(bookmarkList!) {
@@ -590,10 +654,10 @@ extension StockDetailViewController{
         let selectedDateStr = dateFormatter.stringForValue(highlight.x, axis: nil)
 //        self.showAlert(title: "\(highlight.y)원 입니다")
         
-        if(highlight.y > 5000){
+        if(self.currentView == 1){
             self.changePriceLabel.text = "\(selectedDateStr) : \(highlight.y)"
         }else{
-            self.changePriceLabel.text = "\(selectedDateStr) : \(highlight.y)"
+            self.changePriceLabel2.text = "\(selectedDateStr) : \(highlight.y)"
         }
 //        print("Selected Y Value:", value)
     }

@@ -30,8 +30,11 @@ class LoginViewController: UIViewController {
         self.addTouchGesture_stopEditing()
         
         if(UserManager.shared.getUser() != nil){
+            print("User = nil \(UserManager.shared.getUser())")
             guard let viewController = self.storyboard?.instantiateViewController(withIdentifier: "TapBarController") as? UITabBarController else {return}
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(viewController, animated: true)
+        }else{
+            print("User = \(UserManager.shared.getUser())")
         }
     }
 

@@ -59,8 +59,13 @@ class BookMarkListViewController: UIViewController {
         if let bookmarkListEncoded = UserDefaults.standard.data(forKey: userID){
             let bookmarkListDecoded = try? JSONDecoder().decode([Bookmark].self, from: bookmarkListEncoded)
             print("BookmarkListViewController getBookMarkList() -> bookmarkList:\(bookmarkListDecoded)")
-            self.bookmarkList = bookmarkListDecoded!
-            self.collectionView.reloadData()
+            if bookmarkListDecoded != nil{
+                self.bookmarkList = bookmarkListDecoded!
+                self.collectionView.reloadData()
+            }else{
+                self.bookmarkList = []
+            }
+
         }
         return
     }

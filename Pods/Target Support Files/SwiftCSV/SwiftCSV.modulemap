@@ -1,0 +1,6 @@
+module SwiftCSV {
+  umbrella header "SwiftCSV-umbrella.h"
+
+  export *
+  module * { export * }
+}

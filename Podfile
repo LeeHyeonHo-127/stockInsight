@@ -4,6 +4,7 @@
 target 'Stock_Insight_Duplicated' do
   pod 'Charts'
   pod 'MarkdownKit'
+  pod 'SwiftCSV'
 
 
   # Pods for Stock_Insight_Duplicated

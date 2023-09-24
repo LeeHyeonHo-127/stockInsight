@@ -2,6 +2,8 @@ import UIKit
 import Charts
 import Foundation
 import SwiftYFinance
+import Alamofire
+
 
 enum ChartDataType: String{
     case sentimentalPredict = "감성분석"
@@ -26,7 +28,6 @@ class MainViewContoller: UIViewController {
     @IBOutlet var presentPriceLabel2: UILabel!
     @IBOutlet var changePriceLabel: UILabel!
     @IBOutlet var krwLabel: UILabel!
-    
     
     
     @IBOutlet var changePriceLabel2: UILabel!
@@ -67,7 +68,7 @@ class MainViewContoller: UIViewController {
     var predictStockData: PredictStock?
     var predictStockData_search: PredictStock?
     
-    var indexDatas: IndexData?
+    var indexDatas: IndexData = IndexData(KOSPI: [], KOSDAQ: [], KOSPI200: [])
     var openDates: [Date]?
     
     
@@ -86,16 +87,11 @@ class MainViewContoller: UIViewController {
         super.viewDidLoad()
         
         //장 여는 날짜 반환
-        openDates = self.getOpenDay()
+        
         
         //data 가져오기
-        //self.getIndexWithAPI() //지수 가져오기
-        
-        
-        
-        self.getPresentStockWithAPI(stockName: "삼성전자") //현재 보여질 주식에 대한 값 가져오기
-        
-        
+        self.getIndexWithAPI() //지수 가져오기
+        self.getStockWithAPI(stockName: "삼성전자") //현재 보여질 주식에 대한 값 가져오기
         
 //        let kospiData = self.downloadCSVFile(indexURL: URL(string: "https://cf51-39-118-146-59.ngrok-free.app/download/KOSPI_data.csv")!)
      
@@ -122,20 +118,19 @@ class MainViewContoller: UIViewController {
 //        GetStockDataService.shared.getCloseValue_Test()
         
        
-        
         //Dummy Data 가져오기
-        self.getPresentStock_Dummy()
+//        self.getPresentStock_Dummy()
         
-        self.getIndex_Dummy()
+//        self.getIndex_Dummy()
         
         //더미 유저 UserManager에 저장
-        self.setUser_dummy()
+//        self.setUser_dummy()
         //유저 정보 갖고오기
 //        self.getUser()
         
         
         //뷰 세팅
-        self.settingView()
+//        self.settingView()
         
         //제스쳐 세팅
         self.gestureSetting()
@@ -159,8 +154,8 @@ class MainViewContoller: UIViewController {
     //뷰 세팅
     func settingView(){
         
-        guard let currentPrice = self.presentStockData_Dummy?.currentPrice else {return}
-        guard let change = self.presentStockData_Dummy?.change else {return}
+        guard let currentPrice = self.predictStockData?.currentPrice else {return}
+        guard let change = self.predictStockData?.change else {return}
         let changePrice = 1600
         //주식 변동율 = ((현재 가격 – 이전 가격) / 이전 가격) x 100
         
@@ -191,9 +186,9 @@ class MainViewContoller: UIViewController {
     //라벨 뷰 세팅 함수
     func predictViewLabeSetting(type: ChartDataType){
         //예측 값이 얼마나 올랐는지 계산하는 코드 필요
-        guard let currentPrice = self.presentStockData?.currentPrice else {return}
-        guard let change = self.presentStockData?.change else {return}
-        guard let stockName = self.presentStockData?.stockName else {return}
+        guard let currentPrice = self.predictStockData?.currentPrice else {return}
+        guard let change = self.predictStockData?.change else {return}
+        guard let stockName = self.predictStockData?.stockName else {return}
         guard let sentimental = self.presentStockData?.sentiment else {return}
         
         
@@ -217,15 +212,13 @@ class MainViewContoller: UIViewController {
             self.changePriceLabel.textColor = .systemRed
             
             
-            if let lastEntry = self.indexDatas?.KOSPI.last,
+            if let lastEntry = self.indexDatas.KOSPI.last,
                let lastValue = lastEntry.values.first {
                 print("Last Value:", lastValue)
                 
                 print(String((Int(lastValue))))
 //                self.presentPriceLabel2.text = String((Int(lastValue)))
             }
-            
-            
         }
         self.predictViewTypeLabel.text = type.rawValue
     }
@@ -276,11 +269,11 @@ class MainViewContoller: UIViewController {
             
             switch chartDataType{
             case .KOSPI:
-                stockData = self.indexDatas?.KOSPI
+                stockData = self.indexDatas.KOSPI
             case .KOSDAQ:
-                stockData = self.indexDatas?.KOSDAQ
+                stockData = self.indexDatas.KOSDAQ
             case .KOSPI200:
-                stockData = self.indexDatas?.KOSPI200
+                stockData = self.indexDatas.KOSPI200
             case .presentPrice:
                 stockData = self.predictStockData?.current_Data //테스트
             case .predict5day:
@@ -372,13 +365,14 @@ class MainViewContoller: UIViewController {
             }
             
             if chartDataType == .predict5day || chartDataType == .predict10day {
-                let dateString = "2023/06/07"
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy/MM/dd"
-                let date = dateFormatter.date(from: dateString)
-                let doubleValue = date?.timeIntervalSince1970
+//                let dateString = "2023/06/07"
+//                let dateFormatter = DateFormatter()
+//                dateFormatter.dateFormat = "yyyy/MM/dd"
+//                let date = dateFormatter.date(from: dateString)
+                let date = Date()
+                let doubleValue = date.timeIntervalSince1970
                 
-                let limitLine = ChartLimitLine(limit: doubleValue!, label: "") // 특정 x 값에 대한 제한선 생성
+                let limitLine = ChartLimitLine(limit: doubleValue, label: "") // 특정 x 값에 대한 제한선 생성
                 limitLine.lineWidth = 1 // 제한선의 너비 설정
                 limitLine.lineColor = .systemRed // 제한선의 색상 설정
                 lineChartView.xAxis.addLimitLine(limitLine) // 제한선을 왼쪽 축에 추가
@@ -428,6 +422,7 @@ class MainViewContoller: UIViewController {
         //종목 상세화면으로 이동
         guard let viewController = self.storyboard?.instantiateViewController(identifier: "StockDetailViewController") as? StockDetailViewController else {return}
         
+        viewController.predictStockData = self.predictStockData
         viewController.presentStockData_Dummy = self.presentStockData_Dummy
         viewController.presentStockData = self.presentStockData
         self.navigationController?.pushViewController(viewController, animated: true)
@@ -484,6 +479,8 @@ class MainViewContoller: UIViewController {
         self.indexLineChartView = self.configureChartView(isPredict: true, color: UIColor.systemGreen, chartDataType: .KOSPI)
         self.indexView.addSubview(self.indexLineChartView)
 
+        self.indexViewTypeLabel.text = "KOSPI"
+        
         self.kospiButton.backgroundColor = .darkGray
         self.kosdaqButton.backgroundColor = .black
         self.kospi200Button.backgroundColor = .black
@@ -496,6 +493,8 @@ class MainViewContoller: UIViewController {
         self.indexLineChartView = self.configureChartView(isPredict: true, color: UIColor.systemGreen, chartDataType: .KOSDAQ)
         self.indexView.addSubview(self.indexLineChartView)
         
+        self.indexViewTypeLabel.text = "KOSDAQ"
+        
         self.kospiButton.backgroundColor = .black
         self.kosdaqButton.backgroundColor = .darkGray
         self.kospi200Button.backgroundColor = .black
@@ -505,6 +504,8 @@ class MainViewContoller: UIViewController {
         self.indexLineChartView.removeFromSuperview()
         self.indexLineChartView = self.configureChartView(isPredict: true, color: UIColor.systemGreen, chartDataType: .KOSPI200)
         self.indexView.addSubview(self.indexLineChartView)
+        
+        self.indexViewTypeLabel.text = "KOSPI200"
         
         self.kospiButton.backgroundColor = .black
         self.kosdaqButton.backgroundColor = .black
@@ -531,7 +532,7 @@ class MainViewContoller: UIViewController {
     
     
     //하나의 예측 주가 데이터 구조체로 함치는 함수
-    func getPredictStock(stockCode: String, stockInfo: StockInfo){
+    func getPredictStock(stockCode: String, stockInfo: StockInfo, isSearch: Bool){
         //var stockDataFromYF = GetStockFromYFService.shared.getStockDataFromYF(stockCode: stockCode)
         
         var predict5Price_before = stockInfo.predict5Prices
@@ -548,7 +549,7 @@ class MainViewContoller: UIViewController {
         dateFormatter_DateAndTime.dateFormat = "yyyy-MM-dd HH:mm:ss"
     
         
-        let startDate = dateFormatter_onlyDate.date(from: "2020-01-01")
+        let startDate = dateFormatter_onlyDate.date(from: "2023-01-01")
         let endDate = Date()
         
         let calendar = Calendar.current
@@ -602,16 +603,28 @@ class MainViewContoller: UIViewController {
                 self.predictStockData = predictStockData
                 
                 //주가 그래프 뷰 세팅
+                if self.predictLineChartView != nil{
+                    self.predictLineChartView.removeFromSuperview()
+                }
+                
                 self.predictLineChartView = self.configureChartView(isPredict: true, color: UIColor.stockInsightBlue, chartDataType: .presentPrice)
-                self.indexLineChartView = self.configureChartView(isPredict: true, color: UIColor.systemOrange, chartDataType: .KOSPI)
                 self.predicePriceView.addSubview(self.predictLineChartView)
-                self.indexView.addSubview(self.indexLineChartView)
                 self.predictViewLabeSetting(type: .KOSPI)
                 self.predictViewLabeSetting(type: .presentPrice)
+                self.settingView()
+                
+                if isSearch == true{
+                    guard let viewController = self.storyboard?.instantiateViewController(identifier: "StockDetailViewController") as? StockDetailViewController else {return}
+                    viewController.presentStockData = self.searchStockData
+                    viewController.predictStockData = self.predictStockData
+                    
+                    viewController.presentStockData_Dummy = self.searchStockData_Dummy
+                    self.navigationController?.pushViewController(viewController, animated: true)
+                }
                 
                 
                 print("=========================")
-                print("self.predictStockData.predict5_Data = \(predictStockData.predict5_Data)")
+//                print("self.predictStockData.predict5_Data = \(predictStockData.predict5_Data)")
                 
 //                print("transformedData = \(transformedData)")
             }
@@ -654,16 +667,17 @@ class MainViewContoller: UIViewController {
         GetStockService.shared.getStock(stockName: stockName, completion: { (networkResult) in
             switch networkResult{
             case.success(let data):
-                print("========searchStockWithAPI Success IN=====")
-                guard let searchData = data as? StockInfo2 else {return}
-                self.searchStockData = searchData.stockInfo
                 
-                //종목 상세화면으로 이동 함수
-                guard let viewController = self.storyboard?.instantiateViewController(identifier: "StockDetailViewController") as? StockDetailViewController else {return}
-                viewController.presentStockData = self.searchStockData
-                viewController.presentStockData_Dummy = self.searchStockData_Dummy
-                self.navigationController?.pushViewController(viewController, animated: true)
+                guard let presentStockData = data as? StockInfo2 else {return}
+                self.presentStockData = presentStockData.stockInfo
                 
+                self.getPredictStock(stockCode: presentStockData.stockInfo.stockCode, stockInfo: presentStockData.stockInfo, isSearch: true)
+                
+                self.predictViewLabeSetting(type: .presentPrice)
+                
+                guard let stockName = self.presentStockData?.stockName else {return}
+                self.getPresentStock_Dummy(stockName: stockName)
+                //print("===presentStockData.predixt10Prices = \(self.presentStockData?.predict10Prices)=========")
             case .requestErr(let msg):
                 //API 시간 초과
                 if let message = msg as? String {
@@ -681,8 +695,10 @@ class MainViewContoller: UIViewController {
         })
     }
     
+
+    
     //현재 주가에 대한 데이터 갖고오기 함수
-    func getPresentStockWithAPI(stockName: String){
+    func getStockWithAPI(stockName: String){
         GetStockService.shared.getStock(stockName: stockName, completion: { (networkResult) in
             switch networkResult{
             case.success(let data):
@@ -690,7 +706,7 @@ class MainViewContoller: UIViewController {
                 guard let presentStockData = data as? StockInfo2 else {return}
                 self.presentStockData = presentStockData.stockInfo
                 
-                self.getPredictStock(stockCode: presentStockData.stockInfo.stockCode, stockInfo: presentStockData.stockInfo)
+                self.getPredictStock(stockCode: presentStockData.stockInfo.stockCode, stockInfo: presentStockData.stockInfo, isSearch: false)
                 
                 self.predictViewLabeSetting(type: .presentPrice)
                 
@@ -720,12 +736,13 @@ class MainViewContoller: UIViewController {
         GetIndexService.shared.getIndex(completion: { (networkResult) in
             switch networkResult{
             case.success(let data):
-                guard let indexURLs = data as? IndexURLs else {return}
-                let kospiData = self.downloadCSVFile(indexURL: indexURLs.KOSPI)
-                let kosdaqData = self.downloadCSVFile(indexURL: indexURLs.KOSDAQ)
-                let kospi200Data = self.downloadCSVFile(indexURL: indexURLs.KOSPI200)
-                print(kospiData)
-                self.indexDatas = IndexData(KOSPI: kospiData, KOSDAQ: kosdaqData, KOSPI200: kospi200Data)
+                guard let indexURLs = data as? IndexURLStrings else {return}
+                print("indexURLS = \(indexURLs)")
+                self.downloadAndParseCSV(url: indexURLs.KOSPI, type: .KOSPI)
+                self.downloadAndParseCSV(url: indexURLs.KOSDAQ, type: .KOSDAQ)
+                self.downloadAndParseCSV(url: indexURLs.KOSPI200, type: .KOSPI200)
+                
+                
                 
             case .requestErr(let msg):
                 //API 시간 초과
@@ -781,7 +798,7 @@ class MainViewContoller: UIViewController {
     //MARK: - 기타 함수
 
     @IBAction func everyDayEconomyButtonTapped(_ sender: Any) {
-        guard let urlString = self.presentStockData?.magazineUrl else {return}
+        guard let urlString = self.predictStockData?.newsUrl else {return}
         let websiteURL = URL(string: urlString)
         if let url = websiteURL {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -789,7 +806,7 @@ class MainViewContoller: UIViewController {
     }
     
     @IBAction func hankyunBusinessButtonTapped(_ sender: Any) {
-        guard let urlString = self.presentStockData?.newsUrl else {return}
+        guard let urlString = self.predictStockData?.magazineUrl else {return}
         let websiteURL = URL(string: urlString)
         if let url = websiteURL {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -797,7 +814,7 @@ class MainViewContoller: UIViewController {
     }
     
     @IBAction func economistButtonTapped(_ sender: Any) {
-        guard let urlString = self.presentStockData?.economistUrl else {return}
+        guard let urlString = self.predictStockData?.economistUrl else {return}
         let websiteURL = URL(string: urlString)
         if let url = websiteURL {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -807,7 +824,7 @@ class MainViewContoller: UIViewController {
     
     @objc func everyDayEconomyHandleTap(_ gesture: UITapGestureRecognizer) {
         if gesture.state == .ended {
-            guard let urlString = self.presentStockData_Dummy?.magazineUrl else {return}
+            guard let urlString = self.predictStockData?.newsUrl else {return}
             let websiteURL = URL(string: urlString)
             if let url = websiteURL {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -816,7 +833,7 @@ class MainViewContoller: UIViewController {
     }
     @objc func hankyungBusinessHandleTap(_ gesture: UITapGestureRecognizer) {
         if gesture.state == .ended {
-            guard let urlString = self.presentStockData_Dummy?.newsUrl else {return}
+            guard let urlString = self.predictStockData?.magazineUrl else {return}
             let websiteURL = URL(string: urlString)
             if let url = websiteURL {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -825,7 +842,7 @@ class MainViewContoller: UIViewController {
     }
     @objc func economistHandleTap(_ gesture: UITapGestureRecognizer) {
         if gesture.state == .ended {
-            guard let urlString = self.presentStockData_Dummy?.economistUrl else {return}
+            guard let urlString = self.predictStockData?.economistUrl else {return}
             let websiteURL = URL(string: urlString)
             if let url = websiteURL {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -883,80 +900,61 @@ class MainViewContoller: UIViewController {
         return dates
     }
 
-        
-     
-    func getOpenDay() -> [Date]{
-        let holidays2022 = ["2022-01-31", "2022-02-01", "2022-02-02", "2022-03-01", "2022-03-09", "2022-05-05"]
-        let weekends2022 = [1, 2]
-
-        let holidays2023 = ["2023/01/23","1/24","3/01","5/01","5/05","6/06","8/15","9/28",
-                             "9 /29 ","10 /03 ","10 /09 ","12 /25 ","12 /29"]
-        let weekends2023=[2,7]
-
-        var year2022Dates=createDates(year :2022 ,holidays:holidays2022 ,weekends:weekends2022)
-        var year2023Dates=createDates(year :2023 ,holidays:holidays2023 ,weekends:weekends2023)
-        
-//        print("2022년 개장일\(year2022Dates)")
-//        print("2023년 개장일\(year2023Dates)")
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        var datesWithTime = year2022Dates + year2023Dates
-        var datesWithoutTime: [Date] = []
-        
-//        for dateWithTime in datesWithTime {
-//            let dateString = dateFormatter.string(from: dateWithTime)
-//            if let dateWithoutTime = dateFormatter.date(from: dateString) {
-//                datesWithoutTime.append(dateWithoutTime)
-//            }
-//        }
-        
-//        print("장 여는 날 = \(datesWithTime)")
-        return datesWithoutTime
-    }
     
     
-    
-    
-    //CSV 다운, 파싱 함수
-    func downloadCSVFile(indexURL: URL) -> [[Date: Double]] {
+    //csv 다운,파싱 함수
+    func downloadAndParseCSV(url: String, type: ChartDataType) {
         var dictionaryArray: [[Date: Double]] = []
+        
+        // Alamofire를 사용하여 CSV 파일 다운로드
+        AF.download(url).responseData { response in
+            switch response.result {
+            case .success(let data):
+                if let csvString = String(data: data, encoding: .utf8) {
+                    print("csvString = \(csvString)")
+                    
+                    let lines = csvString.components(separatedBy: "\n")
+                    print("lines = \(lines)")
+                        
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
 
-        do {
-            let csvData = try Data(contentsOf: indexURL)
-            guard let csvString = String(data: csvData, encoding: .utf8) else {return dictionaryArray}
+                    for line in lines[1...] {
+                        let temp = line.components(separatedBy: ",")
+                        var fields = temp.map { $0.replacingOccurrences(of: "\r", with: "") }
+                        fields = fields.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                            
+                        print("fields = \(fields)")
 
-            let lines = csvString.components(separatedBy: "\n")
-
-            let trimmedLines = lines.map { line -> String in
-                var trimmedLine = line
-                if let commaIndex = line.firstIndex(of: ",") {
-                    let startIndex = line.index(after: commaIndex)
-                    trimmedLine = String(line[startIndex...])
+                        if let dateString = fields.first, let valueString = fields.last,
+                            let date = dateFormatter.date(from: dateString),
+                           let value = Double(valueString) {
+                            print("let in")
+                            let dictionary: [Date: Double] = [date: value]
+                            dictionaryArray.append(dictionary)
+                        }
+                    }
+                    switch type{
+                    case.KOSPI:
+                        self.indexDatas.KOSPI = dictionaryArray.reversed()
+                        self.indexLineChartView = self.configureChartView(isPredict: true, color: UIColor.systemOrange, chartDataType: .KOSPI)
+                        self.indexView.addSubview(self.indexLineChartView)
+                        print("KOSPI = \(dictionaryArray)")
+                    case .KOSDAQ:
+                        self.indexDatas.KOSDAQ = dictionaryArray.reversed()
+                    case .KOSPI200:
+                        self.indexDatas.KOSPI200 = dictionaryArray.reversed()
+                    default:
+                        self.indexDatas.KOSPI200 = dictionaryArray.reversed()
+                    }
                 }
-                return trimmedLine
+            case .failure(let error):
+                print("다운로드 오류: \(error)")
             }
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy/MM/dd"
-
-            for line in trimmedLines[1...] {
-                let temp = line.components(separatedBy: ",")
-                let fields = temp.map { $0.replacingOccurrences(of: "\r", with: "") }
-
-                if let dateString = fields.first, let valueString = fields.last,
-                   let date = dateFormatter.date(from: dateString),
-                   let value = Double(valueString) {
-                    let dictionary: [Date: Double] = [date: value]
-                    dictionaryArray.append(dictionary)
-                }
-            }
-        } catch {
-            print("Error reading CSV file: \(error)")
         }
-        return dictionaryArray
     }
+    
+    
     
     //CSV 파싱 함수
     func parseCSVFile(datasetName: String) -> [[Date: Double]] {
@@ -999,11 +997,7 @@ class MainViewContoller: UIViewController {
         return dictionaryArray
     }
     
-    //변동률 계산 함수
-    func changeRate(today: Double, yesterDay: Double) -> Double{
-        return (((today - yesterDay)/yesterDay)*100).rounded() / 10
-    }
-    //주식 변동율 = ((현재 가격 – 이전 가격) / 이전 가격) x 100
+
     
     //showAlert
     func showAlert(title: String, message: String? = nil) {

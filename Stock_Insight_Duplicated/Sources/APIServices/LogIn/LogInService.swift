@@ -72,16 +72,22 @@ struct LogInService{
                 
                 for cookie in cookies {
                     if cookie.name == "access_token" {
-                        print("Received access token:", cookie.value)
+//                        print("Received access token:", cookie.value)
                         UserDefaults.standard.removeObject(forKey: cookie.name)
                         UserDefaults.standard.set(cookie.value, forKey: cookie.name)
+
+                        let encoder = PropertyListEncoder()
+                        if let encodedData = try? encoder.encode(decodedData) { //유저를 직렬화 해서 UserDefaults애 저장
+                            let userDefaults = UserDefaults.standard
+                            userDefaults.set(encodedData, forKey: decodedData.user_id) //key = user_id
+                        }
                         
-//                        UserDefaults.standard.removeObject(forKey: decodedData)
-//                        UserDefaults.standard.set(decodedData, forKey: cookie.value) //accessToken을 기반으로 유저 저장
-                        UserManager.shared.setUser(decodedData)
+                        UserManager.shared.setUser(decodedData) //UserManager에 user저장
+                        print("User 저장. user = \(decodedData)")
+                        
                     }
                     else if cookie.name == "refresh_token"{
-                        print("Received refresh token:", cookie.value)
+//                        print("Received refresh token:", cookie.value)
 //                        UserDefaults.standard.set(cookie.value, forKey: cookie.name)
                     }
                 }

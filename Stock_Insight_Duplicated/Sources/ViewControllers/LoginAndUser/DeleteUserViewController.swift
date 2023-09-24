@@ -132,6 +132,9 @@ class DeleteUserViewController: UIViewController {
             
             switch networkResult{
             case .success(_):
+                let userID = UserManager.shared.getUser()
+                UserManager.shared.deleteUser()
+                UserDefaults.standard.removeObject(forKey: "userID")
                 guard let viewController = self.storyboard?.instantiateViewController(withIdentifier: "BeginNavigationController") as? BeginNavigationController else {return}
                 (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(viewController, animated: true)
             case .requestErr(let msg):

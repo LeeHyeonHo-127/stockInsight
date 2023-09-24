@@ -33,6 +33,7 @@ class MyPageViewController: UIViewController {
     //로그아웃 버튼
     @IBAction func logOutButtonTapped(_ sender: Any) {
 //        self.logOutWithAPI()
+        UserManager.shared.deleteUser()
         guard let viewController = self.storyboard?.instantiateViewController(withIdentifier: "BeginNavigationController") as? BeginNavigationController else {return}
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(viewController, animated: true)
     }

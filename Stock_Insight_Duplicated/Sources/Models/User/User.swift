@@ -19,8 +19,20 @@ class UserManager {
         user = newUser
     }
     
+    func deleteUser(){
+        user = nil
+    }
+    
     func getUser() -> User? {
         return user
+    }
+    
+    func getUserID() -> String?{
+        return user?.user_id
+    }
+    
+    func getUserName() -> String?{
+        return user?.name
     }
 
     

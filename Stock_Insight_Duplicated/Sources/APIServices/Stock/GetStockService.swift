@@ -8,7 +8,7 @@ struct GetStockService{
     func getStock(stockName: String,
                 completion: @escaping (NetworkResult<Any>) -> (Void) ) {
         
-        print("======getStock.getStock In=========")
+//        print("======getStock.getStock In=========")
         
         let url = APIConstants.getStockInfo
         
@@ -49,10 +49,10 @@ struct GetStockService{
     //종목 검색 여부 확인
     private func judgeGetStock(status: Int, data: Data) -> NetworkResult<Any>{
         let decoder = JSONDecoder()
-        print("======judgeGetStock In=========")
-        
-        print("isJSON : \(isJSONValid(data: data))")
-        print(" type : \(type(of: data))")
+//        print("======judgeGetStock In=========")
+//        
+//        print("isJSON : \(isJSONValid(data: data))")
+//        print(" type : \(type(of: data))")
         
         /*
         if let jsonString = String(data: data, encoding: .utf8) {

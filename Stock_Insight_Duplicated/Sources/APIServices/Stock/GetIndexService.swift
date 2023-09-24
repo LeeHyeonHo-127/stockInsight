@@ -51,11 +51,13 @@ struct GetIndexService{
     
     //주요 지수 가져오기 여부 확인
     private func judgeGetIndex(status: Int, data: Data) -> NetworkResult<Any>{
+        print("======judgeGetIndex In=========")
         let decoder = JSONDecoder()
-        guard let decodedData = try? decoder.decode(IndexURLStrings.self, from: data) else {
+        guard let decodedData = try? decoder.decode([IndexDataString].self, from: data) else {
             return .pathErr
         }
-        print("======judgeGetIndex In=========")
+        print("======디코딩 성공========")
+        print("decodedData = \(decodedData)")
         
         if let jsonString = String(data: data, encoding: .utf8) {
             // Print the JSON string to check the format
@@ -69,9 +71,11 @@ struct GetIndexService{
         switch status {
         case 200:
             // 성공
-            var indexURLs = IndexURLs(KOSPI: URL(string: decodedData.KOSPI)!,
-                                      KOSDAQ: URL(string: decodedData.KOSDAQ)!,
-                                      KOSPI200: URL(string: decodedData.KOSPI200)!)
+            var indexURLs = IndexURLStrings(KOSPI: decodedData[0].csvUrl,
+                                      KOSDAQ: decodedData[1].csvUrl,
+                                      KOSPI200: decodedData[2].csvUrl)
+            print("성공 200!")
+            
             return .success(indexURLs)
             
         case 408:
