@@ -68,17 +68,22 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
         
         //ChartView 설정
         self.predictLineChartView = configureChartView(isPredict: true, color: UIColor.stockInsightBlue, chartDataType: .presentPrice)
-        self.indexLineChartView = configureChartView(isPredict: true, color: UIColor.systemYellow,chartDataType: .presentPrice)
+        self.indexLineChartView = configureChartView(isPredict: true, color: UIColor.systemGreen,chartDataType: .presentPrice)
         self.predicePriceView.addSubview(predictLineChartView)
         self.indexView.addSubview(indexLineChartView)
         
         self.setGestureChartView()
+        
+        self.getBookmarkList()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.backgroundColor = .black
-        self.settingView()
+        DispatchQueue.main.async {
+            self.settingView()
+            self.predictViewLabeSetting(type: .presentPrice)
+        }
         self.makeStarButton()
     }
     
@@ -516,8 +521,8 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
             if let bookmarkListEncoded = try? JSONEncoder().encode(bookmarkList!) {
                 UserDefaults.standard.set(bookmarkListEncoded, forKey: userID)
                 print("addBookMark _ bookmarkListEncoded : \(bookmarkListEncoded)")
+                UserDefaults.standard.setValue(bookmarkListEncoded, forKey: userID)
             }
-            UserDefaults.standard.setValue(bookmarkList, forKey: userID)
         }
     }
     
@@ -553,6 +558,7 @@ class StockDetailViewController: UIViewController, ChartViewDelegate {
         
         if let bookmarkListEncoded = UserDefaults.standard.data(forKey: userID){
             let bookmarkListDecoded = try? JSONDecoder().decode([Bookmark].self, from: bookmarkListEncoded)
+            print("=================")
             print("StockDetailViewController_ getBookMarkList() -> bookmarkList:\(bookmarkListDecoded)")
             return bookmarkListDecoded
         }

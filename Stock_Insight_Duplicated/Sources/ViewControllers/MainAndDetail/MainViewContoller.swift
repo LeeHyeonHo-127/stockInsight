@@ -36,6 +36,7 @@ class MainViewContoller: UIViewController {
     @IBOutlet var predictViewTypeLabel: UILabel!
     
     //button
+    @IBOutlet var searchButton: UIButton!
     @IBOutlet var presentPriceButton: UIButton!
     @IBOutlet var LSTMButton: UIButton!
     @IBOutlet var sentimentalButton: UIButton!
@@ -155,8 +156,6 @@ class MainViewContoller: UIViewController {
     func settingView(){
         
         guard let currentPrice = self.predictStockData?.currentPrice else {return}
-        guard let change = self.predictStockData?.change else {return}
-        let changePrice = 1600
         //주식 변동율 = ((현재 가격 – 이전 가격) / 이전 가격) x 100
         
         
@@ -178,6 +177,8 @@ class MainViewContoller: UIViewController {
         self.kospi200Button.layer.cornerRadius = 5
         self.predicePriceView.layer.cornerRadius = 5
         self.indexView.layer.cornerRadius = 5
+        self.searchTextField.layer.cornerRadius = 5
+        self.searchButton.layer.cornerRadius = 5
     }
     
    
@@ -423,7 +424,7 @@ class MainViewContoller: UIViewController {
         guard let viewController = self.storyboard?.instantiateViewController(identifier: "StockDetailViewController") as? StockDetailViewController else {return}
         
         viewController.predictStockData = self.predictStockData
-        viewController.presentStockData_Dummy = self.presentStockData_Dummy
+//        viewController.presentStockData_Dummy = self.presentStockData_Dummy
         viewController.presentStockData = self.presentStockData
         self.navigationController?.pushViewController(viewController, animated: true)
         
@@ -538,7 +539,7 @@ class MainViewContoller: UIViewController {
         var predict5Price_before = stockInfo.predict5Prices
         var predict10Price_before = stockInfo.predict10Prices
         
-        let symbol = stockCode + ".KS" // 삼성전자 종목 심볼, ".KS"는 한국 주식 시장을 나타냅니다.
+        let symbol = stockCode + ".KS" // ".KS"는 한국 주식 시장을 나타냅니다.
         var stockData = [[Date: Double]]()
         
         // 시작 및 종료 날짜 설정
@@ -565,6 +566,8 @@ class MainViewContoller: UIViewController {
             return nil
         }
         
+        print("stockCode : \(stockCode)'s predict5Price_transformed = \(predict5Price_transformed)")
+        
         let predict10Price_transformed: [[Date: Double]] = predict10Price_before.compactMap { predict10Price_before in
             if let dateString = predict10Price_before.date,
                let priceString = predict10Price_before.price,
@@ -574,6 +577,8 @@ class MainViewContoller: UIViewController {
             }
             return nil
         }
+        
+        print("stockCode : \(stockCode)'s predict10Price_transformed = \(predict10Price_transformed)")
         
         // 종가 데이터 가져오기
         SwiftYFinance.chartDataBy(identifier: symbol, start: startDate!, end: endDate, interval: .oneday){
@@ -676,7 +681,7 @@ class MainViewContoller: UIViewController {
                 self.predictViewLabeSetting(type: .presentPrice)
                 
                 guard let stockName = self.presentStockData?.stockName else {return}
-                self.getPresentStock_Dummy(stockName: stockName)
+                //self.getPresentStock_Dummy(stockName: stockName)
                 //print("===presentStockData.predixt10Prices = \(self.presentStockData?.predict10Prices)=========")
             case .requestErr(let msg):
                 //API 시간 초과
@@ -711,7 +716,7 @@ class MainViewContoller: UIViewController {
                 self.predictViewLabeSetting(type: .presentPrice)
                 
                 guard let stockName = self.presentStockData?.stockName else {return}
-                self.getPresentStock_Dummy(stockName: stockName)
+//                self.getPresentStock_Dummy(stockName: stockName)
                 //print("===presentStockData.predixt10Prices = \(self.presentStockData?.predict10Prices)=========")
             case .requestErr(let msg):
                 //API 시간 초과
@@ -737,7 +742,7 @@ class MainViewContoller: UIViewController {
             switch networkResult{
             case.success(let data):
                 guard let indexURLs = data as? IndexURLStrings else {return}
-                print("indexURLS = \(indexURLs)")
+                //print("indexURLS = \(indexURLs)")
                 self.downloadAndParseCSV(url: indexURLs.KOSPI, type: .KOSPI)
                 self.downloadAndParseCSV(url: indexURLs.KOSDAQ, type: .KOSDAQ)
                 self.downloadAndParseCSV(url: indexURLs.KOSPI200, type: .KOSPI200)
@@ -911,10 +916,10 @@ class MainViewContoller: UIViewController {
             switch response.result {
             case .success(let data):
                 if let csvString = String(data: data, encoding: .utf8) {
-                    print("csvString = \(csvString)")
+                    //print("csvString = \(csvString)")
                     
                     let lines = csvString.components(separatedBy: "\n")
-                    print("lines = \(lines)")
+                    //print("lines = \(lines)")
                         
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -924,12 +929,12 @@ class MainViewContoller: UIViewController {
                         var fields = temp.map { $0.replacingOccurrences(of: "\r", with: "") }
                         fields = fields.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
                             
-                        print("fields = \(fields)")
+                        //print("fields = \(fields)")
 
                         if let dateString = fields.first, let valueString = fields.last,
                             let date = dateFormatter.date(from: dateString),
                            let value = Double(valueString) {
-                            print("let in")
+                            //print("let in")
                             let dictionary: [Date: Double] = [date: value]
                             dictionaryArray.append(dictionary)
                         }
@@ -937,9 +942,9 @@ class MainViewContoller: UIViewController {
                     switch type{
                     case.KOSPI:
                         self.indexDatas.KOSPI = dictionaryArray.reversed()
-                        self.indexLineChartView = self.configureChartView(isPredict: true, color: UIColor.systemOrange, chartDataType: .KOSPI)
+                        self.indexLineChartView = self.configureChartView(isPredict: true, color: UIColor.systemGreen, chartDataType: .KOSPI)
                         self.indexView.addSubview(self.indexLineChartView)
-                        print("KOSPI = \(dictionaryArray)")
+                        //print("KOSPI = \(dictionaryArray)")
                     case .KOSDAQ:
                         self.indexDatas.KOSDAQ = dictionaryArray.reversed()
                     case .KOSPI200:

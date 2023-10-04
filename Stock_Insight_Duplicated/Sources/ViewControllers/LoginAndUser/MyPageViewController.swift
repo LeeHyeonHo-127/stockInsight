@@ -9,15 +9,25 @@ import UIKit
 
 class MyPageViewController: UIViewController {
     
-    
+    @IBOutlet var userName: UILabel!
+    @IBOutlet var userID: UILabel!
     //viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        settingView()
     }
     
     //viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    //MARK: - 설정함수
+    func settingView(){
+        let user = UserManager.shared.getUser()
+        self.userID.text = user?.user_id
+        self.userName.text = user?.name
+        
     }
     
     

@@ -121,6 +121,7 @@ class LoginViewController: UIViewController {
             case .serverErr:
                 print("serverErr in logInWithAPI")
             case .networkFail:
+                
                 print("networkFail in logInWithAPI")
             default:
                 print("networkFail in logInWithAPI")
