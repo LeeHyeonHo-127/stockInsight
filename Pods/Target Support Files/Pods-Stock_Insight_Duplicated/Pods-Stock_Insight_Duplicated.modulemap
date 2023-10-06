@@ -1,0 +1,6 @@
+module Pods_Stock_Insight_Duplicated {
+  umbrella header "Pods-Stock_Insight_Duplicated-umbrella.h"
+
+  export *
+  module * { export * }
+}
