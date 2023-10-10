@@ -626,6 +626,7 @@ class MainViewContoller: UIViewController {
                     return [date: Double(close)]
                 }
                 stockData = transformedData
+                var recentStockData = transformedData.suffix(10)
                 
                 let predictStockData = PredictStock(stockName: stockInfo.stockName,
                                                     stockCode: stockInfo.stockCode,
@@ -635,8 +636,8 @@ class MainViewContoller: UIViewController {
                                                     newsUrl: stockInfo.newsUrl,
                                                     magazineUrl: stockInfo.magazineUrl,
                                                     economistUrl: stockInfo.economistUrl,
-                                                    predict5_Data: transformedData + predict5Price_transformed,
-                                                    predict10_Data: transformedData + predict10Price_transformed,
+                                                    predict5_Data: recentStockData + predict5Price_transformed,
+                                                    predict10_Data: recentStockData + predict10Price_transformed,
                                                     predictSentiment: stockInfo.sentiment,
                                                     current_Data: transformedData)
                 
