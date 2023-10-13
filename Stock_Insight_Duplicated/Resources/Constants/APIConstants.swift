@@ -1,7 +1,7 @@
 import Foundation
 
 struct APIConstants{
-    static let baseURL = "https://1543-117-16-40-139.ngrok-free.app"
+    static let baseURL = "https://095c-218-55-7-205.ngrok-free.app"
 
     
     

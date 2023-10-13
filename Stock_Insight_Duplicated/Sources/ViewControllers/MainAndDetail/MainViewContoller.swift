@@ -591,7 +591,7 @@ class MainViewContoller: UIViewController {
         let calendar = Calendar.current
         
         // PredictedPrice 배열을 [[Date: Double]] 형태로 변환
-        let predict5Price_transformed: [[Date: Double]] = predict5Price_before.compactMap { predict5Price_before in
+        var predict5Price_transformed: [[Date: Double]] = predict5Price_before.compactMap { predict5Price_before in
             if let dateString = predict5Price_before.date,
                let priceString = predict5Price_before.price,
                let date = convertToDate(dateString),
@@ -603,7 +603,7 @@ class MainViewContoller: UIViewController {
         
         print("stockCode : \(stockCode)'s predict5Price_transformed = \(predict5Price_transformed)")
         
-        let predict10Price_transformed: [[Date: Double]] = predict10Price_before.compactMap { predict10Price_before in
+        var predict10Price_transformed: [[Date: Double]] = predict10Price_before.compactMap { predict10Price_before in
             if let dateString = predict10Price_before.date,
                let priceString = predict10Price_before.price,
                let date = convertToDate(dateString),
@@ -612,6 +612,8 @@ class MainViewContoller: UIViewController {
             }
             return nil
         }
+        
+        
         
         print("stockCode : \(stockCode)'s predict10Price_transformed = \(predict10Price_transformed)")
         
@@ -626,6 +628,9 @@ class MainViewContoller: UIViewController {
                     return [date: Double(close)]
                 }
                 stockData = transformedData
+                
+                predict5Price_transformed.removeFirst()
+                predict10Price_transformed.removeFirst()
                 var recentStockData = transformedData.suffix(10)
                 
                 let predictStockData = PredictStock(stockName: stockInfo.stockName,
